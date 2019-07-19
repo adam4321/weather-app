@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', bindButtons);
 
 // Weather form submission
 function bindButtons() {
+    // Attach click handler to weather cubmit button
     document.getElementById('citySubmit').addEventListener('click', function(event){
 
     // Receive city from form
@@ -33,58 +34,75 @@ function bindButtons() {
         return;
     }
 
-    // Open the get request
-    req.open('GET', 'http://api.openweathermap.org/data/2.5/weather?q=' + location + ',us&APPID=' + apiKey, false);
+    // Open the get request for weather app
+    req.open('GET', 'http://api.openweathermap.org/data/2.5/weather?q=' + location + ',us&APPID=' + apiKey, true);
+
+    req.addEventListener('load',function(){
+        if (req.status >= 200 && req.status < 400){
+
+            // Log the response
+            console.log(JSON.parse(req.responseText));
+
+            // Store the response data
+            data = JSON.parse(req.responseText);
+
+            // Populate the current city
+            document.getElementById('city').textContent = ' ' + data.name;
+
+            // Get the temp and convert from kelvin to fahrenheit
+            let temp = data.main.temp
+            temp = (temp - 273.15) * 9/5 + 32
+            temp = temp.toPrecision(3);
+            document.getElementById('temp').textContent = ' ' + temp + ' degrees F.';
+
+            // Show the current conditions
+            document.getElementById('other').textContent = ' ' + data.weather[0].description;
+
+        } else {
+        console.log("Error in network request: " + req.statusText);
+        }});
 
     // Send the request
     req.send(null);
 
-    // Log the response
-    console.log(JSON.parse(req.responseText));
-
-    // Store the response data
-    data = JSON.parse(req.responseText);
-
-    // Populate the current city
-    document.getElementById('city').textContent = ' ' + data.name;
-
-    // Get the temp and convert from kelvin to fahrenheit
-    let temp = data.main.temp
-    temp = (temp - 273.15) * 9/5 + 32
-    temp = temp.toPrecision(3);
-    document.getElementById('temp').textContent = ' ' + temp + ' degrees F.';
-
-    // Show the current conditions
-    document.getElementById('other').textContent = ' ' + data.weather[0].description;
-
     // Run once for each button click
     event.preventDefault();
     })
-};
 
 
-// API key for link shortener
-var apiKey2 = 'AIzaSyAh2sUzWPm-pRQCbgyZijqWcKGFcoXeK2o';
-
-//
-document.addEventListener('DOMContentLoaded', bindButtons2);
-
-//
-function bindButtons2(){
+    // Attach click handler to http submit form
     document.getElementById('urlSubmit').addEventListener('click', function(event){
-      var req = new XMLHttpRequest();
-      var payload = {longUrl:null};
-      payload.longUrl = document.getElementById('longUrl').value;
-      req.open('POST', 'https://www.googleapis.com/urlshortener/v1/url?key=' + apiKey2, false);
-      req.setRequestHeader('Content-Type', 'application/json');
-      req.send(JSON.stringify(payload));
-      var response = JSON.parse(req.responseText);
-      document.getElementById('originalUrl').textContent = response.longUrl;
-      document.getElementById('shortUrl').textContent = response.id;
-      event.preventDefault();
+        let req = new XMLHttpRequest();
+
+        // Receive city from form
+        let post = document.getElementById('longUrl').value;
+
+        req.open('POST', 'http://httpbin.org/post', true);
+        req.setRequestHeader('Content-Type', 'application/json');
+		req.addEventListener('load', function() {
+			if (req.status >= 200 && req.status < 400) {
+
+                // Log the response
+                console.log(JSON.parse(req.responseText));
+
+                // Pull the value out of the response
+                let response = JSON.parse(req.responseText).json;
+                
+                // Display the entered value
+                document.getElementById('originalUrl').textContent = post;
+
+                // Display the returned value
+                document.getElementById('shortUrl').textContent = response;
+			} else {
+				let str = "Error in network request: " + response.statusText;
+				console.log(str);
+				alert(str);
+            }});
+           
+        // Send the request
+        req.send(JSON.stringify(post));
+        
+        // Run once for each button click
+        event.preventDefault();
     })
-}
-
-
-
-
+};
