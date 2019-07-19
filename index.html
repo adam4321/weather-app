@@ -9,13 +9,59 @@
 
 <body>
 
- <h1>Current Local</h1>
-  <h2>Weather App</h2>
-  <div id="city-display">
-    </div>
-  <div id="temp-display">
+ <h1>Current Local Weather App</h1>
+
+ <p class="form-title">Enter your city or zip code</p>
+ <form>
+     <div class="form-box">
+         <label for="text-box-2">City:</label>
+         <input type="text" id="text-box-2" name="text_input">
+     </div>
+     <div class="form-box">
+         <label for="num-box-2">Zip Code:</label>
+         <input type="text" id="num-box-2" name="numerical_input">
+     </div>
+         <div>
+             <button type='submit' id='citySubmit'>Submit</button>
+         </div>
+     </div>
+ </form>
+
+ <div>
+    <h2 class='result'>Result</h2>
+    <ul>
+        <li><span>City: </span><span id='city' class='reply'></span></li>
+        <li><span>Temperature:</span><span id='temp' class='reply'></span></li>
+        <li><span>Conditions:</span><span id='other' class='reply'></span></li>
+    </ul>
   </div>
-  <p>by <a href="https://adamjwright.com" >Adam Wright</a></p>
+  <!-- 
+  <div id='city' class='reply'>
+    </div>
+  
+  <div id='temp' class='reply'> 
+  </div>
+
+  <div id='other' class='reply'>
+  </div> -->
+
+
+  <form id='form2'>
+        <fieldset>
+          <legend>URL Shortener</legend>
+          <label for="longUrl"></label>
+          <input type="text" name="longUrl" id="longUrl">
+          <input type="submit" id="urlSubmit">
+        </fieldset>
+      </form>
+      <div>
+        <h2 class='result'>Result</h2>
+        <ul>
+          <li><span>Original URL:</span><span id="originalUrl"></span></li>
+          <li><span>Short URL:</span><span id="shortUrl"></span></li>
+        </ul>
+      </div>
+
 
   <script type="text/javascript" src="scripts/main.js"></script>
 </body>

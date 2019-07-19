@@ -1,116 +1,90 @@
-$(document).ready(function(){
-        function displayLocation(latitude,longitude){
-        var request = new XMLHttpRequest();
 
-       var method = 'GET';
-       var url = 'http://maps.googleapis.com/maps/api/geocode/json?latlng='+latitude+','+longitude+'&sensor=true';
-       var async = true;
+// Create a new http request
+let req = new XMLHttpRequest();
 
-       request.open(method, url, async);
-       request.onreadystatechange = function(){
-       if(request.readyState == 4 && request.status == 200){
-         var data = JSON.parse(request.responseText);
-         alert(request.responseText); // check under which type your city is stored, later comment this line
-         var addressComponents = data.results[0].address_components;
-         for(i=0;i<addressComponents.length;i++){
-            var types = addressComponents[i].types
-            //alert(types);
-            if(types=="locality,political"){
-               alert(addressComponents[i].long_name); // this should be your city, depending on where you are
-             }
-           }
-        //alertaddress.city.short_name);
-       }
-    };
-   request.send();
- 
-        };
+// API key
+let apiKey = '6a0b5d5d6abb3afef1eceed83838a4d5';
 
- var successCallback = function(position){
- var x = position.coords.latitude;
- var y = position.coords.longitude;
- displayLocation(x,y);
-  
- };
+// Check that the page is loaded before allowing a submission
+document.addEventListener('DOMContentLoaded', bindButtons);
 
+// Weather form submission
+function bindButtons() {
+    document.getElementById('citySubmit').addEventListener('click', function(event){
 
- navigator.geolocation.getCurrentPosition(successCallback);
+    // Receive city from form
+    let city = document.getElementById('text-box-2').value;
 
-  });
+    // Receive zip from form
+    let zip = document.getElementById('num-box-2').value;
 
+        console.log(city);
+        console.log(zip);
 
-/*
-  
-var geocoder;
-  
+    // Set location
+    let location = '';
 
-if (navigator.geolocation) {
-  navigator.geolocation.getCurrentPosition(successFunction, errorFunction);
-}
-// Get the latitude and the longitude;
-function successFunction(position) {
-  var lat = position.coords.latitude;
-  var lng = position.coords.longitude;
-  codeLatLng(lat, lng);
-}
-
-function errorFunction() {
-  alert("Geocoder failed");
-}
-
-function initialize() {
-  geocoder = new google.maps.Geocoder();
-
-}
-
-function codeLatLng(lat, lng) {
-  var latlng = new google.maps.LatLng(lat, lng);
-  geocoder.geocode({latLng: latlng}, function(results, status) {
-    if (status == google.maps.GeocoderStatus.OK) {
-      if (results[1]) {
-        var arrAddress = results;
-        console.log(results);
-        $.each(arrAddress, function(i, address_component) {
-          if (address_component.types[0] == "locality") {
-            console.log("City: " + address_component.address_components[0].long_name);
-            itemLocality = address_component.address_components[0].long_name;
-          }
-        });
-      } else {
-        alert("No results found");
-      }
-    } else {
-      alert("Geocoder failed due to: " + status);
+    if (city !== '') {
+        location = city;
+    }   else if (zip !== '') {
+        location = zip;
+    }   else {
+        alert("Please enter a city or zip code");
+        return;
     }
-  });
+
+    // Open the get request
+    req.open('GET', 'http://api.openweathermap.org/data/2.5/weather?q=' + location + ',us&APPID=' + apiKey, false);
+
+    // Send the request
+    req.send(null);
+
+    // Log the response
+    console.log(JSON.parse(req.responseText));
+
+    // Store the response data
+    data = JSON.parse(req.responseText);
+
+    // Populate the current city
+    document.getElementById('city').textContent = ' ' + data.name;
+
+    // Get the temp and convert from kelvin to fahrenheit
+    let temp = data.main.temp
+    temp = (temp - 273.15) * 9/5 + 32
+    temp = temp.toPrecision(3);
+    document.getElementById('temp').textContent = ' ' + temp + ' degrees F.';
+
+    // Show the current conditions
+    document.getElementById('other').textContent = ' ' + data.weather[0].description;
+
+    // Run once for each button click
+    event.preventDefault();
+    })
+};
+
+
+// API key for link shortener
+var apiKey2 = 'AIzaSyAh2sUzWPm-pRQCbgyZijqWcKGFcoXeK2o';
+
+//
+document.addEventListener('DOMContentLoaded', bindButtons2);
+
+//
+function bindButtons2(){
+    document.getElementById('urlSubmit').addEventListener('click', function(event){
+      var req = new XMLHttpRequest();
+      var payload = {longUrl:null};
+      payload.longUrl = document.getElementById('longUrl').value;
+      req.open('POST', 'https://www.googleapis.com/urlshortener/v1/url?key=' + apiKey2, false);
+      req.setRequestHeader('Content-Type', 'application/json');
+      req.send(JSON.stringify(payload));
+      var response = JSON.parse(req.responseText);
+      document.getElementById('originalUrl').textContent = response.longUrl;
+      document.getElementById('shortUrl').textContent = response.id;
+      event.preventDefault();
+    })
 }
-codeLatLng();
-$("#temp-display").html(arrAddress);
-
-  
-  if (navigator.geolocation) {
-navigator.geolocation.getCurrentPosition(function(position) {
-$("#temp-display").html("latitude: " + position.coords.latitude + "<br>longitude: " + position.coords.longitude);
-});
-}
-  /*
-  
- });
 
 
 
-var weatherRequest = function() {
-   request = new XMLHttpRequest();
-request.open("GET", "http://api.openweathermap.org/data/2.5/weather?id=5809844&APPID=369c73a58bd59afd5d0642d98c72773b", false);
 
-
-  request.send();
-  };
-console.log(request);
-
-document.getElementById("#temp-display").innerHTML=request.response;
-
-/*
-document.getElementById("temp-display").innerHTML =weatherResponse.responseText;
-//var data = JSON.parse(responseText);
-//var temperature = data.map(function(d) { return d['main']; }).indexOf('temp')*/

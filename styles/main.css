@@ -1,26 +1,70 @@
+
 body {
-  background-color: #111111;
-}
-h1{
-  text-align: center;
-  color: #dddddd;
-  font-size: 50px;
-}
-h2{
-  text-align: center;
-  color: #dddddd;
-  font-size: 45px;
-}
-#city-display{
-  color: #dddddd;
-  text-align: center;
-}
-#temp-display{
-  color: #dddddd;
-  text-align: center;
+  background-color: #fff7f7;
 }
 
-p{
-  text-align: center;
-  color: #dddddd;
+
+/* City information Form  */
+
+.form-title {
+    margin: 20px 0px 0px 20px;
 }
+
+form {
+    width: 400px;
+    margin: 5px 0px 20px 20px;
+    padding:5px;
+    border: 1.5px solid #333;
+}
+
+.form-box {
+    border: 2px solid #CCC;
+    margin: 15px;
+    padding: 5px;
+}
+
+.vert-radio {
+    display: block;
+    width: 90px;
+}
+
+button {
+    margin: 20px 10px 10px 5px;
+}
+
+
+/* Weather information */
+
+h1 {
+  text-align: center;
+  color: #0a0a0a;
+  font-size: 40px;
+}
+
+.headline {
+  text-align: center;
+  color: #0a0a0a;
+  font-size: 40px;
+}
+
+/* #city {
+  color: #0a0a0a;
+  margin-left: 20px;
+  font-size: 30px;
+} */
+
+.reply {
+  color: #0a0a0a;
+  margin-left: 20px;
+  font-size: 18px;
+}
+
+#form2 {
+    top: 800px;
+    margin-top:30px;
+}
+
+.result {
+    margin-left: 20px;
+}
+
