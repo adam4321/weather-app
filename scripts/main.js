@@ -75,7 +75,12 @@ function bindButtons() {
         let req = new XMLHttpRequest();
 
         // Receive city from form
-        let post = document.getElementById('longUrl').value;
+        let post = '';
+        post = document.getElementById('longUrl').value;
+
+        if (post === '') {
+            alert('Please enter a message to be sent');
+        }
 
         req.open('POST', 'http://httpbin.org/post', true);
         req.setRequestHeader('Content-Type', 'application/json');
