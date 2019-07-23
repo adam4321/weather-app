@@ -1,4 +1,5 @@
 
+
 // Create a new http request
 let req = new XMLHttpRequest();
 
@@ -7,6 +8,8 @@ let apiKey = '6a0b5d5d6abb3afef1eceed83838a4d5';
 
 // Check that the page is loaded before allowing a submission
 document.addEventListener('DOMContentLoaded', bindButtons);
+
+// let local = prompt('Please enter your location');
 
 // Weather form submission
 function bindButtons() {

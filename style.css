@@ -1,42 +1,37 @@
 body {
-  background-color: #fff7f7;
+  background-color: #ebe2e2;
 }
 
 h1 {
-    text-align: center;
-    color: #0a0a0a;
-    font-size: 40px;
+  text-align: center;
+  color: #0a0a0a;
+  font-size: 40px;
 }
 
 #app-box {
-    float:center;
+  margin-left: 38%;
 }
 
 /* City information Form  */
 .form-title {
-    margin: 20px 0px 0px 20px;
+  margin: 20px 0px 0px 20px;
 }
 
 form {
-    width: 400px;
-    margin: 5px 0px 20px 20px;
-    padding:5px;
-    border: 1.5px solid #333;
+  width: 400px;
+  margin: 5px 0px 20px 20px;
+  padding: 5px;
+  border: 1.5px solid #333;
 }
 
 .form-box {
-    border: 2px solid #CCC;
-    margin: 15px;
-    padding: 5px;
-}
-
-.vert-radio {
-    display: block;
-    width: 90px;
+  border: 2px solid #ccc;
+  margin: 15px;
+  padding: 5px;
 }
 
 button {
-    margin: 20px 10px 10px 5px;
+  margin: 20px 10px 10px 5px;
 }
 
 /* Weather information */
@@ -53,5 +48,5 @@ button {
 }
 
 .result {
-    margin-left: 20px;
+  margin-left: 20px;
 }
