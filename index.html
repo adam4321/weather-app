@@ -1,43 +1,43 @@
 <!doctype html>
 <html lang="en">
 
-<head>
-  <meta charset="UTF-8" />
-  <link rel="stylesheet" type="text/css" href="style.css">
-  <title>Current Weather</title>
-</head>
+    <head>
+        <meta charset="UTF-8" />
+        <link rel="stylesheet" type="text/css" href="style.css">
+        <title>Local Weather</title>
+    </head>
 
-<body>
+    <body>
+        <div id='app-box'>
+            <h1>Current Local Weather App</h1>
 
- <h1>Current Local Weather App</h1>
+            <p class="form-title">Enter your city or zip code</p>
 
- <p class="form-title">Enter your city or zip code</p>
- <form>
-     <div class="form-box">
-         <label for="text-box-2">City:</label>
-         <input type="text" id="text-box-2" name="text_input">
-     </div>
-     <div class="form-box">
-         <label for="num-box-2">Zip Code:</label>
-         <input type="text" id="num-box-2" name="numerical_input">
-     </div>
-         <div>
-             <button type='submit' id='citySubmit'>Submit</button>
-         </div>
-     </div>
- </form>
+            <form>
+                <div class="form-box">
+                    <label for="text-box-2">City:</label>
+                    <input type="text" id="text-box-2" name="text_input">
+                </div>
 
- <div>
-    <h2 class='result'>Result</h2>
-    <ul>
-        <li><span>City: </span><span id='city' class='reply'></span></li>
-        <li><span>Temperature:</span><span id='temp' class='reply'></span></li>
-        <li><span>Conditions:</span><span id='other' class='reply'></span></li>
-    </ul>
-  </div>
+                <div class="form-box">
+                    <label for="num-box-2">Zip Code:</label>
+                    <input type="text" id="num-box-2" name="numerical_input">
+                </div>
 
+                <div><button type='submit' id='citySubmit'>Submit</button></div>
+            </form>
 
-  <script type="text/javascript" src="script.js"></script>
-</body>
+            <div>
+                <h2 class='result'>Result</h2>
+                <ul>
+                    <li><span>City: </span><span id='city' class='reply'></span></li>
+                    <li><span>Temperature:</span><span id='temp' class='reply'></span></li>
+                    <li><span>Conditions:</span><span id='other' class='reply'></span></li>
+                </ul>
+            </div>
+            
+        </div>
+        <script type="text/javascript" src="script.js"></script>
+    </body>
 
 </html>
