@@ -1,5 +1,7 @@
+
 // API key
 import * as credentials from './credentials.js';
+
 
 // let local = prompt('Please enter your location');
 
