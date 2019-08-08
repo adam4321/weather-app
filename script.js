@@ -1,10 +1,10 @@
+// API key
+import * as credentials from './credentials.js';
+
 // let local = prompt('Please enter your location');
 
 // Create a new http request
 let req = new XMLHttpRequest();
-
-// API key
-let apiKey = '6a0b5d5d6abb3afef1eceed83838a4d5';
 
 // Check that the page is loaded before allowing a submission
 document.addEventListener('DOMContentLoaded', bindButtons);
@@ -36,7 +36,7 @@ function bindButtons() {
     }
 
     // Open the get request for weather app
-    req.open('GET', 'http://api.openweathermap.org/data/2.5/weather?q=' + location + ',us&APPID=' + apiKey, true);
+    req.open('GET', 'http://api.openweathermap.org/data/2.5/weather?q=' + location + ',us&APPID=' + credentials.apiKey, true);
 
     req.addEventListener('load',function(){
         if (req.status >= 200 && req.status < 400){
@@ -45,7 +45,7 @@ function bindButtons() {
             console.log(JSON.parse(req.responseText));
 
             // Store the response data
-            data = JSON.parse(req.responseText);
+            let data = JSON.parse(req.responseText);
 
             // Populate the current city
             document.getElementById('city').textContent = ' ' + data.name;
