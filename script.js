@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', bindButtons);
 // Weather form submission
 function bindButtons() {
     // Attach click handler to weather cubmit button
-    document.getElementById('citySubmit').addEventListener('click', function(event){
+    document.getElementById('citySubmit').addEventListener('click', function(event) {
 
     // Receive city from form
     let city = document.getElementById('text-box-2').value;
@@ -30,9 +30,11 @@ function bindButtons() {
 
     if (city !== '') {
         location = city;
-    }   else if (zip !== '') {
+    }
+    else if (zip !== '') {
         location = zip;
-    }   else {
+    }
+    else {
         alert("Please enter a city or zip code");
         return;
     }
@@ -41,7 +43,7 @@ function bindButtons() {
     req.open('GET', 'http://api.openweathermap.org/data/2.5/weather?q=' + location + ',us&APPID=' + credentials.apiKey, true);
 
     req.addEventListener('load',function(){
-        if (req.status >= 200 && req.status < 400){
+        if (req.status >= 200 && req.status < 400) {
 
             // Log the response
             console.log(JSON.parse(req.responseText));
