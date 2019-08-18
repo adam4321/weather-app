@@ -7,12 +7,13 @@
         <link href="https://fonts.googleapis.com/css?family=Oswald&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> 
         <link rel="stylesheet" type="text/css" href="style.css">
-        <title>Current Local Weather</title>
+        <title>Current Weather</title>
     </head>
 
     <body>
-        <h1>Current Local Weather</h1>
-            <div id='app-box'>
+        <div id='root'>
+            <h1>Current Weather</h1>
+            <div id='form-box'>
                 
                 <p class="form-title">Enter your city or zip code</p>
 
@@ -30,17 +31,9 @@
                     <div><button type='submit' id='city-submit'>Submit</button></div>
                 </form>
             </div>
-
-            <div class='result'>
-                <h2 >Result</h2>
-                <ul>
-                    <li><span>City: </span><span id='city' class='reply'></span></li>
-                    <li><span>Temperature:</span><span id='temp' class='reply'></span></li>
-                    <li><span>Conditions:</span><span id='other' class='reply'></span></li>
-                </ul>
-            </div>
-            
-        <script type="module" src="script.js"></script>
+               
+            <script type="module" src="script.js"></script>
+        </div>
     </body>
 
 </html>

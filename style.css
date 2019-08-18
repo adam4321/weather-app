@@ -9,7 +9,7 @@ h1 {
   font-size: 40px;
 }
 
-#app-box {
+#form-box {
   margin-left: 38%;
 }
 
@@ -32,6 +32,16 @@ form {
   padding: 5px;
 }
 
+#text-box {
+    margin-left: 48px;
+    width: 240px;
+}
+
+#num-box {
+    margin-left: 20px;
+    width: 240px;
+}
+
 /* Download button */
 #city-submit {
   margin: 20px 10px 10px 110px;
@@ -46,12 +56,18 @@ form {
   
 /* Darken button on mouse-over */
 #city-submit:hover {
-background-color: rgba(27, 42, 88, 0.856);
-transition: .4s background-color;
+background-color: rgba(27, 42, 88, 0.712);
+transition: .4s;
 }
 
 
 /* Weather information */
+#display-box {
+    border: 1px solid black;
+    /* width: 50px; */
+    margin-left: 40%;
+}
+
 .headline {
   text-align: center;
   color: #0a0a0a;
@@ -62,8 +78,4 @@ transition: .4s background-color;
   color: #0a0a0a;
   margin-left: 20px;
   font-size: 18px;
-}
-
-.result {
-  margin-left: 40%;
 }
