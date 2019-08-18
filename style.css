@@ -13,6 +13,7 @@ h1 {
   margin-left: 38%;
 }
 
+
 /* City information Form  */
 .form-title {
   margin: 20px 0px 0px 20px;
@@ -31,9 +32,24 @@ form {
   padding: 5px;
 }
 
-button {
-  margin: 20px 10px 10px 5px;
+/* Download button */
+#city-submit {
+  margin: 20px 10px 10px 110px;
+  background-color: rgb(38, 91, 143);
+  border: none;
+  color: white;
+  padding: 6px;
+  cursor: pointer;
+  font-size: 18px;
+  width: 180px;
 }
+  
+/* Darken button on mouse-over */
+#city-submit:hover {
+background-color: rgba(27, 42, 88, 0.856);
+transition: .4s background-color;
+}
+
 
 /* Weather information */
 .headline {
@@ -49,5 +65,5 @@ button {
 }
 
 .result {
-  margin-left: 20px;
+  margin-left: 40%;
 }

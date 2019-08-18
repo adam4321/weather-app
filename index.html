@@ -3,33 +3,36 @@
 
     <head>
         <meta charset="UTF-8" />
-        <link href="https://fonts.googleapis.com/css?family=Oswald&display=swap" rel="stylesheet"> 
+        <meta name="author" content="Adam-Wright">
+        <link href="https://fonts.googleapis.com/css?family=Oswald&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> 
         <link rel="stylesheet" type="text/css" href="style.css">
-        <title>Local Weather</title>
+        <title>Current Local Weather</title>
     </head>
 
     <body>
-        <h1>Current Local Weather App</h1>
-        <div id='app-box'>
-            
-            <p class="form-title">Enter your city or zip code</p>
+        <h1>Current Local Weather</h1>
+            <div id='app-box'>
+                
+                <p class="form-title">Enter your city or zip code</p>
 
-            <form>
-                <div class="form-box">
-                    <label for="text-box-2">City:</label>
-                    <input type="text" id="text-box-2" name="text_input">
-                </div>
+                <form>
+                    <div class="form-box">
+                        <label for="text-box">City:</label>
+                        <input type="text" id="text-box" name="text_input">
+                    </div>
 
-                <div class="form-box">
-                    <label for="num-box-2">Zip Code:</label>
-                    <input type="text" id="num-box-2" name="numerical_input">
-                </div>
+                    <div class="form-box">
+                        <label for="num-box">Zip Code:</label>
+                        <input type="text" id="num-box" name="numerical_input">
+                    </div>
 
-                <div><button type='submit' id='citySubmit'>Submit</button></div>
-            </form>
+                    <div><button type='submit' id='city-submit'>Submit</button></div>
+                </form>
+            </div>
 
-            <div>
-                <h2 class='result'>Result</h2>
+            <div class='result'>
+                <h2 >Result</h2>
                 <ul>
                     <li><span>City: </span><span id='city' class='reply'></span></li>
                     <li><span>Temperature:</span><span id='temp' class='reply'></span></li>
@@ -37,7 +40,6 @@
                 </ul>
             </div>
             
-        </div>
         <script type="module" src="script.js"></script>
     </body>
 
