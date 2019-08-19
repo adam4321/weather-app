@@ -42,7 +42,7 @@ form {
     width: 240px;
 }
 
-/* Download button */
+/* Submit location button */
 #city-submit {
   margin: 20px 10px 10px 110px;
   background-color: rgb(38, 91, 143);
@@ -68,14 +68,20 @@ transition: .4s;
     margin-left: 34%;
 }
 
-.headline {
-  text-align: center;
-  color: #0a0a0a;
-  font-size: 40px;
-}
-
 .reply {
   color: #0a0a0a;
   margin-left: 40%;
   font-size: 18px;
+}
+
+#city {
+    font-size: 22px;
+}
+
+#icon {
+    margin-left: 35%;
+}
+
+#temp {
+    margin-left: 35%;
 }

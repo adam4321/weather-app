@@ -124,6 +124,7 @@ function bindButtons() {
                 }
             }
             findIcon(data);
+
             let weatherIcon = document.createElement('img');
             weatherIcon.src = currentIcon;
             weatherIcon.id = 'icon';
@@ -137,15 +138,38 @@ function bindButtons() {
             document.getElementById('display-box').appendChild(conditions);
             document.getElementById('other').textContent = ' ' + data.weather[0].description;
 
-            // Create temp element and convert from kelvin to fahrenheit
+            // Create temp element and convert from kelvin to fahrenheit or celcius
             let tempBox = document.createElement('p');
             tempBox.id = 'temp';
             tempBox.className = 'reply';
             document.getElementById('display-box').appendChild(tempBox);
-            let temp = data.main.temp
-            temp = (temp - 273.15) * 9/5 + 32
+
+            let standard = document.createElement('button');
+            standard.id = 'standard-btn';
+            standard.tempType = 'F';
+            document.getElementById('display-box').appendChild(standard);
+            document.getElementById('standard-btn').textContent = 'Fahrenheit | Celcius';
+
+            let temp = data.main.temp;
+            temp = (temp - 273.15) * 9/5 + 32;
             temp = temp.toPrecision(3);
-            document.getElementById('temp').textContent = ' ' + temp + ' degrees F.';
+            document.getElementById('temp').textContent = `${temp}  degrees ${standard.tempType}.`;
+
+            // Farenheit or Celcius button
+            document.getElementById('standard-btn').addEventListener('click', function(event) {
+                if (standard.tempType == 'F') {
+                    standard.tempType = 'C';
+                    temp = data.main.temp
+                    temp = temp - 273.15;
+                }
+                else if (standard.tempType == 'C') {
+                    standard.tempType = 'F';
+                    temp = data.main.temp
+                    temp = (temp - 273.15) * 9/5 + 32;
+                }
+                temp = temp.toPrecision(3);
+                document.getElementById('temp').textContent = `${temp}  degrees ${standard.tempType}.`;
+            })
 
         } else {
         console.log("Error in network request: " + req.statusText);
@@ -157,4 +181,6 @@ function bindButtons() {
     // Run once for each button click
     event.preventDefault();
     })
+
+
 };
