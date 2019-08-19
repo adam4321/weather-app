@@ -64,8 +64,8 @@ transition: .4s;
 /* Weather information */
 #display-box {
     border: 1px solid black;
-    /* width: 50px; */
-    margin-left: 40%;
+    width: 30%;
+    margin-left: 34%;
 }
 
 .headline {
@@ -76,6 +76,6 @@ transition: .4s;
 
 .reply {
   color: #0a0a0a;
-  margin-left: 20px;
+  margin-left: 40%;
   font-size: 18px;
 }

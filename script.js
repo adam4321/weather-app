@@ -1,7 +1,6 @@
 
-// API key
+// Import API key
 import * as credentials from './credentials.js';
-
 
 // let local = prompt('Please enter your location');
 
@@ -62,7 +61,7 @@ function bindButtons() {
             city.id = 'city';
             city.className = 'reply';
             document.getElementById('display-box').appendChild(city);
-            document.getElementById('city').textContent = 'Location: ' + data.name;
+            document.getElementById('city').textContent = data.name;
 
             // Create temp element and convert from kelvin to fahrenheit
             let tempBox = document.createElement('p');
@@ -81,6 +80,14 @@ function bindButtons() {
             conditions.className = 'reply';
             document.getElementById('display-box').appendChild(conditions);
             document.getElementById('other').textContent = ' ' + data.weather[0].description;
+
+            let currentIcon = './icons/moon.png'
+            let weatherIcon = document.createElement('img');
+            weatherIcon.src = currentIcon;
+            weatherIcon.id = 'icon';
+            weatherIcon.className = 'reply';
+            document.getElementById('display-box').appendChild(weatherIcon);
+            // document.getElementById('icon').textContent = `icon ${data.weather[0].icon}`;
 
         } else {
         console.log("Error in network request: " + req.statusText);
