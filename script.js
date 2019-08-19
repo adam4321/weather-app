@@ -63,31 +63,89 @@ function bindButtons() {
             document.getElementById('display-box').appendChild(city);
             document.getElementById('city').textContent = data.name;
 
-            // Create temp element and convert from kelvin to fahrenheit
-            let tempBox = document.createElement('p');
-            tempBox.id = 'temp';
-            tempBox.className = 'reply';
-            document.getElementById('display-box').appendChild(tempBox);
-            
-            let temp = data.main.temp
-            temp = (temp - 273.15) * 9/5 + 32
-            temp = temp.toPrecision(3);
-            document.getElementById('temp').textContent = ' ' + temp + ' degrees F.';
+            // Show icon for current conditions
+            let currentIcon;
+            function findIcon(data) {
+                switch (data.weather[0].icon) {
+                    case '01d':
+                        currentIcon = './icons/sun.png';
+                        break;
+                    case '01n':
+                        currentIcon = './icons/moon.png';
+                        break;
+                    case '02d':
+                        currentIcon = './icons/partly-sunny.png'
+                        break;
+                    case '02n':
+                        currentIcon = './icons/wind.png'
+                        break;
+                    case '03d':
+                        currentIcon = './icons/wind.png'
+                        break;
+                    case '03n':
+                        currentIcon = './icons/wind.png'
+                        break;
+                    case '04d':
+                        currentIcon = './icons/wind.png'
+                        break;
+                    case '04n':
+                        currentIcon = './icons/wind.png'
+                        break;
+                    case '09d':
+                        currentIcon = './icons/wind.png'
+                        break;
+                    case '09n':
+                        currentIcon = './icons/wind.png'
+                        break;
+                    case '10d':
+                        currentIcon = './icons/rain.png'
+                        break;
+                    case '10n':
+                        currentIcon = './icons/rain.png'
+                        break;
+                    case '11d':
+                        currentIcon = './icons/storm.png'
+                        break;
+                    case '11n':
+                        currentIcon = './icons/storm.png'
+                        break;
+                    case '13d':
+                        currentIcon = './icons/snow.png'
+                        break;
+                    case '13n':
+                        currentIcon = './icons/snow.png'
+                        break;
+                    case '50d':
+                        currentIcon = './icons/drizzle.png'
+                        break;
+                    case '50n':
+                        currentIcon = './icons/drizzle.png'
+                        break;
+                }
+            }
+            findIcon(data);
+            let weatherIcon = document.createElement('img');
+            weatherIcon.src = currentIcon;
+            weatherIcon.id = 'icon';
+            weatherIcon.className = 'reply';
+            document.getElementById('display-box').appendChild(weatherIcon);
 
-            // Show the current conditions
+            // List the current conditions
             let conditions = document.createElement('p');
             conditions.id = 'other';
             conditions.className = 'reply';
             document.getElementById('display-box').appendChild(conditions);
             document.getElementById('other').textContent = ' ' + data.weather[0].description;
 
-            let currentIcon = './icons/moon.png'
-            let weatherIcon = document.createElement('img');
-            weatherIcon.src = currentIcon;
-            weatherIcon.id = 'icon';
-            weatherIcon.className = 'reply';
-            document.getElementById('display-box').appendChild(weatherIcon);
-            // document.getElementById('icon').textContent = `icon ${data.weather[0].icon}`;
+            // Create temp element and convert from kelvin to fahrenheit
+            let tempBox = document.createElement('p');
+            tempBox.id = 'temp';
+            tempBox.className = 'reply';
+            document.getElementById('display-box').appendChild(tempBox);
+            let temp = data.main.temp
+            temp = (temp - 273.15) * 9/5 + 32
+            temp = temp.toPrecision(3);
+            document.getElementById('temp').textContent = ' ' + temp + ' degrees F.';
 
         } else {
         console.log("Error in network request: " + req.statusText);
