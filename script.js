@@ -5,7 +5,7 @@ import * as credentials from './credentials.js';
 // let local = prompt('Please enter your location');
 
 // Create a new http request
-let req = new XMLHttpRequest();
+const req = new XMLHttpRequest();
 
 // Check that the page is loaded before allowing a submission
 document.addEventListener('DOMContentLoaded', bindButtons);
@@ -16,13 +16,13 @@ function bindButtons() {
     document.getElementById('city-submit').addEventListener('click', function(event) {
 
     // Receive city from form
-    let city = document.getElementById('text-box').value;
+    const city = document.getElementById('text-box').value;
 
     // Receive zip from form
-    let zip = document.getElementById('num-box').value;
+    const zip = document.getElementById('num-box').value;
 
-        console.log(city);
-        console.log(zip);
+        // console.log(city);
+        // console.log(zip);
 
     // Set location
     let location = '';
@@ -39,7 +39,7 @@ function bindButtons() {
     }
 
     // Open the get request for weather app
-    req.open('GET', 'http://api.openweathermap.org/data/2.5/weather?q=' + location + ',us&APPID=' + credentials.apiKey, true);
+    req.open('GET', `http://api.openweathermap.org/data/2.5/weather?q=${location},us&APPID=${credentials.apiKey}`, true);
 
     req.addEventListener('load',function(){
         if (req.status >= 200 && req.status < 400) {
@@ -47,23 +47,23 @@ function bindButtons() {
             document.getElementById('form-box').style = 'display:none'
 
             // Log the response
-            console.log(JSON.parse(req.responseText));
+            // console.log(JSON.parse(req.responseText));
 
             // Store the response data
-            let data = JSON.parse(req.responseText);
+            const data = JSON.parse(req.responseText);
 
-            let displayBox = document.createElement('div');
+            const displayBox = document.createElement('div');
             displayBox.id = 'display-box';
             document.getElementById('root').appendChild(displayBox);
 
             // Populate the current city
-            let city = document.createElement('p');
+            const city = document.createElement('p');
             city.id = 'city';
             city.className = 'reply';
             document.getElementById('display-box').appendChild(city);
             document.getElementById('city').textContent = data.name;
 
-            // Show icon for current conditions
+            // Match current weather icon to api suggestion
             let currentIcon;
             function findIcon(data) {
                 switch (data.weather[0].icon) {
@@ -123,37 +123,40 @@ function bindButtons() {
                         break;
                 }
             }
-            findIcon(data);
 
-            let weatherIcon = document.createElement('img');
+            // Set the current weather icon
+            findIcon(data);
+            const weatherIcon = document.createElement('img');
             weatherIcon.src = currentIcon;
             weatherIcon.id = 'icon';
             weatherIcon.className = 'reply';
             document.getElementById('display-box').appendChild(weatherIcon);
 
             // List the current conditions
-            let conditions = document.createElement('p');
+            const conditions = document.createElement('p');
             conditions.id = 'other';
             conditions.className = 'reply';
             document.getElementById('display-box').appendChild(conditions);
-            document.getElementById('other').textContent = ' ' + data.weather[0].description;
+            document.getElementById('other').textContent = data.weather[0].description;
 
-            // Create temp element and convert from kelvin to fahrenheit or celcius
-            let tempBox = document.createElement('p');
+            // Create temp element
+            const tempBox = document.createElement('p');
             tempBox.id = 'temp';
             tempBox.className = 'reply';
             document.getElementById('display-box').appendChild(tempBox);
 
-            let standard = document.createElement('button');
+            // Set temp standard to fahernheit and add switching button
+            const standard = document.createElement('button');
             standard.id = 'standard-btn';
             standard.tempType = 'F';
             document.getElementById('display-box').appendChild(standard);
             document.getElementById('standard-btn').textContent = 'Fahrenheit | Celcius';
 
+            // Convert kelvin from api to initial fahrenheit
             let temp = data.main.temp;
             temp = (temp - 273.15) * 9/5 + 32;
-            temp = temp.toPrecision(3);
-            document.getElementById('temp').textContent = `${temp}  degrees ${standard.tempType}.`;
+            temp = Math.floor(temp);
+            document.getElementById('temp').textContent = `${temp}\xB0 ${standard.tempType}.`;
 
             // Farenheit or Celcius button
             document.getElementById('standard-btn').addEventListener('click', function(event) {
@@ -167,11 +170,12 @@ function bindButtons() {
                     temp = data.main.temp
                     temp = (temp - 273.15) * 9/5 + 32;
                 }
-                temp = temp.toPrecision(3);
-                document.getElementById('temp').textContent = `${temp}  degrees ${standard.tempType}.`;
+                temp = Math.floor(temp);
+                document.getElementById('temp').textContent = `${temp}\xB0 ${standard.tempType}.`;
             })
 
-        } else {
+        } 
+        else {
         console.log("Error in network request: " + req.statusText);
         }});
 
@@ -181,6 +185,4 @@ function bindButtons() {
     // Run once for each button click
     event.preventDefault();
     })
-
-
 };
