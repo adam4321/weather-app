@@ -77,28 +77,28 @@ function bindButtons() {
                         currentIcon = './icons/partly-sunny.png'
                         break;
                     case '02n':
-                        currentIcon = './icons/wind.png'
+                        currentIcon = './icons/clouds.png'
                         break;
                     case '03d':
-                        currentIcon = './icons/wind.png'
+                        currentIcon = './icons/clouds.png'
                         break;
                     case '03n':
-                        currentIcon = './icons/wind.png'
+                        currentIcon = './icons/clouds.png'
                         break;
                     case '04d':
-                        currentIcon = './icons/wind.png'
+                        currentIcon = './icons/clouds.png'
                         break;
                     case '04n':
-                        currentIcon = './icons/wind.png'
+                        currentIcon = './icons/clouds.png'
                         break;
                     case '09d':
-                        currentIcon = './icons/wind.png'
+                        currentIcon = './icons/rain.png'
                         break;
                     case '09n':
-                        currentIcon = './icons/wind.png'
+                        currentIcon = './icons/rain.png'
                         break;
                     case '10d':
-                        currentIcon = './icons/rain.png'
+                        currentIcon = './icons/rain-sun.png'
                         break;
                     case '10n':
                         currentIcon = './icons/rain.png'
