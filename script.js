@@ -2,29 +2,87 @@
 // Import API key
 import * as credentials from './credentials.js';
 
+// Function to match current weather icon to api's suggestion
+let currentIcon;
+function findIcon(data) {
+    switch (data.weather[0].icon) {
+        case '01d':
+            currentIcon = './icons/sun.png';
+            break;
+        case '01n':
+            currentIcon = './icons/moon.png';
+            break;
+        case '02d':
+            currentIcon = './icons/partly-sunny.png';
+            break;
+        case '02n':
+            currentIcon = './icons/clouds.png';
+            break;
+        case '03d':
+            currentIcon = './icons/clouds.png';
+            break;
+        case '03n':
+            currentIcon = './icons/clouds.png';
+            break;
+        case '04d':
+            currentIcon = './icons/clouds.png';
+            break;
+        case '04n':
+            currentIcon = './icons/clouds.png';
+            break;
+        case '09d':
+            currentIcon = './icons/rain.png';
+            break;
+        case '09n':
+            currentIcon = './icons/rain.png';
+            break;
+        case '10d':
+            currentIcon = './icons/rain-sun.png';
+            break;
+        case '10n':
+            currentIcon = './icons/rain.png';
+            break;
+        case '11d':
+            currentIcon = './icons/storm.png';
+            break;
+        case '11n':
+            currentIcon = './icons/storm.png';
+            break;
+        case '13d':
+            currentIcon = './icons/snow.png';
+            break;
+        case '13n':
+            currentIcon = './icons/snow.png';
+            break;
+        case '50d':
+            currentIcon = './icons/drizzle.png';
+            break;
+        case '50n':
+            currentIcon = './icons/drizzle.png';
+            break;
+    }
+}
+
 // let local = prompt('Please enter your location');
 
-// Create a new http request
+
 const req = new XMLHttpRequest();
 
 // Check that the page is loaded before allowing a submission
 document.addEventListener('DOMContentLoaded', bindButtons);
 
-// Weather form submission
 function bindButtons() {
-    // Attach click handler to weather cubmit button
     document.getElementById('city-submit').addEventListener('click', function(event) {
 
-    // Receive city from form
+    // Receive city or zip from form
     const city = document.getElementById('text-box').value;
-
-    // Receive zip from form
     const zip = document.getElementById('num-box').value;
 
+        // Log the form's entered city or zip value
         // console.log(city);
         // console.log(zip);
 
-    // Set location
+    // Check that the location is set
     let location = '';
 
     if (city !== '') {
@@ -38,7 +96,7 @@ function bindButtons() {
         return;
     }
 
-    // Open the get request for weather app
+    // Open get request to the open weather api
     req.open('GET', `http://api.openweathermap.org/data/2.5/weather?q=${location},us&APPID=${credentials.apiKey}`, true);
 
     req.addEventListener('load',function(){
@@ -62,67 +120,6 @@ function bindButtons() {
             city.className = 'reply';
             document.getElementById('display-box').appendChild(city);
             document.getElementById('city').textContent = data.name;
-
-            // Match current weather icon to api suggestion
-            let currentIcon;
-            function findIcon(data) {
-                switch (data.weather[0].icon) {
-                    case '01d':
-                        currentIcon = './icons/sun.png';
-                        break;
-                    case '01n':
-                        currentIcon = './icons/moon.png';
-                        break;
-                    case '02d':
-                        currentIcon = './icons/partly-sunny.png'
-                        break;
-                    case '02n':
-                        currentIcon = './icons/clouds.png'
-                        break;
-                    case '03d':
-                        currentIcon = './icons/clouds.png'
-                        break;
-                    case '03n':
-                        currentIcon = './icons/clouds.png'
-                        break;
-                    case '04d':
-                        currentIcon = './icons/clouds.png'
-                        break;
-                    case '04n':
-                        currentIcon = './icons/clouds.png'
-                        break;
-                    case '09d':
-                        currentIcon = './icons/rain.png'
-                        break;
-                    case '09n':
-                        currentIcon = './icons/rain.png'
-                        break;
-                    case '10d':
-                        currentIcon = './icons/rain-sun.png'
-                        break;
-                    case '10n':
-                        currentIcon = './icons/rain.png'
-                        break;
-                    case '11d':
-                        currentIcon = './icons/storm.png'
-                        break;
-                    case '11n':
-                        currentIcon = './icons/storm.png'
-                        break;
-                    case '13d':
-                        currentIcon = './icons/snow.png'
-                        break;
-                    case '13n':
-                        currentIcon = './icons/snow.png'
-                        break;
-                    case '50d':
-                        currentIcon = './icons/drizzle.png'
-                        break;
-                    case '50n':
-                        currentIcon = './icons/drizzle.png'
-                        break;
-                }
-            }
 
             // Set the current weather icon
             findIcon(data);
