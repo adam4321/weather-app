@@ -37,10 +37,10 @@ form {
     width: 240px;
 }
 
-#num-box {
+/* #num-box {
     margin-left: 20px;
     width: 240px;
-}
+} */
 
 /* Submit location button */
 #city-submit {
@@ -87,4 +87,11 @@ transition: .4s;
     margin-left: 42%;
 }
 
+#standard-btn {
+    margin-left: 80px;
+}
 
+#change-btn {
+    margin-top: 20px;
+    margin-left: 44%;
+}

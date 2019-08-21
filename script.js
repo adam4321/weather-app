@@ -2,8 +2,42 @@
 // Import API key
 import * as credentials from './credentials.js';
 
+
+
+// Find the user's location
+const locationReq = new XMLHttpRequest();
+let location;
+locationReq.open('GET', 'https://geoip-db.com/json/', true);
+
+locationReq.onload = function() {
+  if (locationReq.status >= 200 && locationReq.status < 400) {
+    // Success!
+    const locationData = JSON.parse(locationReq.responseText);
+    console.log(locationData.country_name);
+    console.log(locationData.state);
+    console.log(locationData.city);
+    console.log(locationData.latitude);
+    console.log(locationData.longitude);
+    console.log(locationData.IPv4);
+    location = locationData.city;
+  } else {
+    // We reached our target server, but it returned an error
+    console.log('error from target')
+  }
+};
+
+locationReq.onerror = function() {
+  // There was a connection error of some sort
+  console.log('connection error')
+};
+
+locationReq.send();
+
+
+
 // Function to match current weather icon to api's suggestion
 let currentIcon;
+
 function findIcon(data) {
     switch (data.weather[0].icon) {
         case '01d':
@@ -63,8 +97,6 @@ function findIcon(data) {
     }
 }
 
-// let local = prompt('Please enter your location');
-
 
 const req = new XMLHttpRequest();
 
@@ -76,21 +108,21 @@ function bindButtons() {
 
     // Receive city or zip from form
     const city = document.getElementById('text-box').value;
-    const zip = document.getElementById('num-box').value;
+    // const zip = document.getElementById('num-box').value;
 
         // Log the form's entered city or zip value
         // console.log(city);
         // console.log(zip);
 
-    // Check that the location is set
+    //Check that the location is set
     let location = '';
 
     if (city !== '') {
         location = city;
     }
-    else if (zip !== '') {
-        location = zip;
-    }
+    // else if (zip !== '') {
+    //     location = zip;
+    // }
     else {
         alert("Please enter a city or zip code");
         return;
@@ -153,7 +185,7 @@ function bindButtons() {
             let temp = data.main.temp;
             temp = (temp - 273.15) * 9/5 + 32;
             temp = Math.floor(temp);
-            document.getElementById('temp').textContent = `${temp}\xB0 ${standard.tempType}.`;
+            document.getElementById('temp').textContent = `${temp}\xB0 ${standard.tempType}`;
 
             // Farenheit or Celcius button
             document.getElementById('standard-btn').addEventListener('click', function(event) {
@@ -168,9 +200,18 @@ function bindButtons() {
                     temp = (temp - 273.15) * 9/5 + 32;
                 }
                 temp = Math.floor(temp);
-                document.getElementById('temp').textContent = `${temp}\xB0 ${standard.tempType}.`;
+                document.getElementById('temp').textContent = `${temp}\xB0 ${standard.tempType}`;
             })
 
+            // Button to refresh page so user can change location
+            const changeBtn = document.createElement('button');
+            changeBtn.id = 'change-btn';
+            document.getElementById('root').appendChild(changeBtn);
+            document.getElementById('change-btn').textContent = 'Change location';
+
+            document.getElementById('change-btn').addEventListener('click', function(event) {
+                window.location.href = window.location.href;
+            })
         } 
         else {
         console.log("Error in network request: " + req.statusText);
