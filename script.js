@@ -124,6 +124,7 @@ document.getElementById('city-submit').addEventListener('click', function(event)
     if (location) {}
     else if (city == '') {
         alert('Please enter a city');
+        showForm();
     }
     else {
         location = city;
@@ -187,7 +188,7 @@ document.getElementById('city-submit').addEventListener('click', function(event)
         else {
         console.log('Error in network request: ' + req.statusText);
         showForm();
-        alert('Sorry, the city wasn\'t found by that name');
+        // alert('Sorry, the city wasn\'t found by that name');
     }});
 
     // Send the request
