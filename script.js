@@ -130,13 +130,11 @@ document.getElementById('city-submit').addEventListener('click', function(event)
     }
     else {
         location = city;
-        document.getElementById('form-box').style = 'display:none';
-        
+        document.getElementById('form-box').style = 'display:none'; 
     }
 
     // Open get request to the open weather api
     req.open('GET', `http://api.openweathermap.org/data/2.5/weather?q=${location},us&APPID=${credentials.apiKey}`, true);
-
     req.addEventListener('load',function(){
         if (req.status >= 200 && req.status < 400) {
 
