@@ -7,34 +7,38 @@
         <link href="https://fonts.googleapis.com/css?family=Oswald&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> 
         <link rel="stylesheet" type="text/css" href="style.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
         <title>Current Weather</title>
     </head>
 
     <body>
         <div id='root'>
             <h1>Current Weather</h1>
-            <div id='form-box'>
-                
+
+            <div id='form-box'> 
                 <p class="form-title">Enter your city below</p>
 
-                <form>
+                <form id='input-form'>
                     <div class="form-box">
                         <label for="text-box">City:</label>
                         <input type="text" id="text-box" name="text_input">
                     </div>
-
-                    <!-- <div class="form-box">
-                        <label for="num-box">Zip Code:</label>
-                        <input type="text" id="num-box" name="numerical_input">
-                    </div> -->
-
-                    <div><button type='submit' id='city-submit'>Submit</button></div>
+                    <button type='submit' id='city-submit'>Submit</button>
                 </form>
             </div>
-               
-            <script type="module" src="script.js"></script>
+
+            <div id='display-box'>
+                <p id='city' class='reply'></p>
+                <img id='icon' class='reply'>
+                <p id='other' class='reply'></p>
+                <p id='temp' class='reply'></p>
+                <button id='standard-btn'>Fahrenheit | Celcius</button>
+            </div>
+
         </div>
+
+        <button id='change-btn'>Change Location</button>
+
+        <script type="module" src="script.js"></script>
     </body>
 
 </html>

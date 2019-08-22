@@ -2,38 +2,8 @@
 // Import API key
 import * as credentials from './credentials.js';
 
-
-
-// Find the user's location
-const locationReq = new XMLHttpRequest();
-let location;
-locationReq.open('GET', 'https://geoip-db.com/json/', true);
-
-locationReq.onload = function() {
-  if (locationReq.status >= 200 && locationReq.status < 400) {
-    // Success!
-    const locationData = JSON.parse(locationReq.responseText);
-    console.log(locationData.country_name);
-    console.log(locationData.state);
-    console.log(locationData.city);
-    console.log(locationData.latitude);
-    console.log(locationData.longitude);
-    console.log(locationData.IPv4);
-    location = locationData.city;
-  } else {
-    // We reached our target server, but it returned an error
-    console.log('error from target')
-  }
-};
-
-locationReq.onerror = function() {
-  // There was a connection error of some sort
-  console.log('connection error')
-};
-
-locationReq.send();
-
-
+// Hide the manual submit form
+document.getElementById('form-box').style = 'display:none'
 
 // Function to match current weather icon to api's suggestion
 let currentIcon;
@@ -97,6 +67,38 @@ function findIcon(data) {
     }
 }
 
+// Find the user's location
+const locationReq = new XMLHttpRequest();
+let location;
+
+locationReq.open('GET', 'https://geoip-db.com/json/', true);
+
+locationReq.onload = function() {
+  if (locationReq.status >= 200 && locationReq.status < 400) {
+    // Success!
+    const locationData = JSON.parse(locationReq.responseText);
+    console.log(locationData.country_name);
+    console.log(locationData.state);
+    console.log(locationData.city);
+    console.log(locationData.latitude);
+    console.log(locationData.longitude);
+    console.log(locationData.IPv4);
+    location = locationData.city;
+    document.getElementsByTagName('button')[0].click();
+
+  } else {
+    // We reached our target server, but it returned an error
+    console.log('error from target')
+  }
+};
+
+locationReq.onerror = function() {
+  // There was a connection error of some sort
+  console.log('connection error')
+};
+
+locationReq.send();
+
 
 const req = new XMLHttpRequest();
 
@@ -108,24 +110,20 @@ function bindButtons() {
 
     // Receive city or zip from form
     const city = document.getElementById('text-box').value;
-    // const zip = document.getElementById('num-box').value;
 
-        // Log the form's entered city or zip value
-        // console.log(city);
-        // console.log(zip);
+    // Log the form's entered city or zip value
+    console.log(city);
 
     //Check that the location is set
-    let location = '';
-
-    if (city !== '') {
-        location = city;
+    if (location) {}
+    else if (city == '') {
+        alert("Please enter a city");
     }
-    // else if (zip !== '') {
-    //     location = zip;
-    // }
     else {
-        alert("Please enter a city or zip code");
-        return;
+        location = city;
+        document.getElementById('form-box').style = 'display:none';
+        document.getElementById('display-box').style = ''
+        document.getElementById('change-btn').style = '';
     }
 
     // Open get request to the open weather api
@@ -134,32 +132,18 @@ function bindButtons() {
     req.addEventListener('load',function(){
         if (req.status >= 200 && req.status < 400) {
 
-            document.getElementById('form-box').style = 'display:none'
-
             // Log the response
             // console.log(JSON.parse(req.responseText));
 
             // Store the response data
             const data = JSON.parse(req.responseText);
 
-            const displayBox = document.createElement('div');
-            displayBox.id = 'display-box';
-            document.getElementById('root').appendChild(displayBox);
-
-            // Populate the current city
-            const city = document.createElement('p');
-            city.id = 'city';
-            city.className = 'reply';
-            document.getElementById('display-box').appendChild(city);
+            // Display the current city name
             document.getElementById('city').textContent = data.name;
 
             // Set the current weather icon
             findIcon(data);
-            const weatherIcon = document.createElement('img');
-            weatherIcon.src = currentIcon;
-            weatherIcon.id = 'icon';
-            weatherIcon.className = 'reply';
-            document.getElementById('display-box').appendChild(weatherIcon);
+            document.getElementById('icon').src = currentIcon;
 
             // List the current conditions
             const conditions = document.createElement('p');
@@ -168,49 +152,38 @@ function bindButtons() {
             document.getElementById('display-box').appendChild(conditions);
             document.getElementById('other').textContent = data.weather[0].description;
 
-            // Create temp element
-            const tempBox = document.createElement('p');
-            tempBox.id = 'temp';
-            tempBox.className = 'reply';
-            document.getElementById('display-box').appendChild(tempBox);
-
-            // Set temp standard to fahernheit and add switching button
-            const standard = document.createElement('button');
-            standard.id = 'standard-btn';
-            standard.tempType = 'F';
-            document.getElementById('display-box').appendChild(standard);
-            document.getElementById('standard-btn').textContent = 'Fahrenheit | Celcius';
-
-            // Convert kelvin from api to initial fahrenheit
-            let temp = data.main.temp;
-            temp = (temp - 273.15) * 9/5 + 32;
-            temp = Math.floor(temp);
-            document.getElementById('temp').textContent = `${temp}\xB0 ${standard.tempType}`;
+            // Convert kelvin temp from api to fahrenheit as default standard 
+            let temp = {};
+            temp.val = data.main.temp;
+            temp.tempType = 'F';
+            temp.val = (temp.val - 273.15) * 9/5 + 32;
+            temp.val = Math.floor(temp.val);
+            document.getElementById('temp').textContent = `${temp.val}\xB0 ${temp.tempType}`;
 
             // Farenheit or Celcius button
             document.getElementById('standard-btn').addEventListener('click', function(event) {
-                if (standard.tempType == 'F') {
-                    standard.tempType = 'C';
-                    temp = data.main.temp
-                    temp = temp - 273.15;
+                if (temp.tempType == 'F') {
+                    temp.tempType = 'C';
+                    temp.val = data.main.temp
+                    temp.val = temp.val - 273.15;
                 }
-                else if (standard.tempType == 'C') {
-                    standard.tempType = 'F';
-                    temp = data.main.temp
-                    temp = (temp - 273.15) * 9/5 + 32;
+                else if (temp.tempType == 'C') {
+                    temp.tempType = 'F';
+                    temp.val = data.main.temp
+                    temp.val = (temp.val - 273.15) * 9/5 + 32;
                 }
-                temp = Math.floor(temp);
-                document.getElementById('temp').textContent = `${temp}\xB0 ${standard.tempType}`;
+                temp.val = Math.floor(temp.val);
+                document.getElementById('temp').textContent = `${temp.val}\xB0 ${temp.tempType}`;
             })
 
-            // Button to refresh page so user can change location
-            const changeBtn = document.createElement('button');
-            changeBtn.id = 'change-btn';
-            document.getElementById('root').appendChild(changeBtn);
-            document.getElementById('change-btn').textContent = 'Change location';
-
+            // Button so user can change location
             document.getElementById('change-btn').addEventListener('click', function(event) {
-                window.location.href = window.location.href;
+                location = '';
+                // window.location.href = window.location.href;
+                document.getElementById('input-form').reset();
+                document.getElementById('form-box').style = '';
+                document.getElementById('display-box').style = 'display:none'
+                document.getElementById('change-btn').style = 'display:none';
             })
         } 
         else {
