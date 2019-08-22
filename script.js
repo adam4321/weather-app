@@ -3,7 +3,9 @@
 import * as credentials from './credentials.js';
 
 // Hide the manual submit form
-document.getElementById('form-box').style = 'display:none'
+document.getElementById('form-box').style = 'display:none';
+document.getElementById('display-box').style = 'display:none';
+document.getElementById('change-btn').style = 'display:none';
 
 // Function to match current weather icon to api's suggestion
 let currentIcon;
@@ -71,7 +73,7 @@ function findIcon(data) {
 function showForm() {
     document.getElementById('input-form').reset();
     document.getElementById('form-box').style = '';
-    document.getElementById('display-box').style = 'display:none'
+    document.getElementById('display-box').style = 'display:none';
     document.getElementById('change-btn').style = 'display:none';
 }
 
@@ -129,8 +131,7 @@ document.getElementById('city-submit').addEventListener('click', function(event)
     else {
         location = city;
         document.getElementById('form-box').style = 'display:none';
-        document.getElementById('display-box').style = ''
-        document.getElementById('change-btn').style = '';
+        
     }
 
     // Open get request to the open weather api
@@ -178,6 +179,8 @@ document.getElementById('city-submit').addEventListener('click', function(event)
                 temp.val = Math.floor(temp.val);
                 document.getElementById('temp').textContent = `${temp.val}\xB0 ${temp.tempType}`;
             })
+            document.getElementById('display-box').style = ''
+        document.getElementById('change-btn').style = '';
 
             // Button so user can change location
             document.getElementById('change-btn').addEventListener('click', function(event) {
