@@ -88,13 +88,22 @@ locationReq.onload = function() {
   } else {
     // We reached our target server, but it returned an error
     console.log('Error from geolocation service')
+    document.getElementById('input-form').reset();
+    document.getElementById('form-box').style = '';
+    document.getElementById('display-box').style = 'display:none'
+    document.getElementById('change-btn').style = 'display:none';
   }
 };
 
 locationReq.onerror = function() {
-  // There was a connection error of some sort
-  console.log('Geolocation connection error')
+    // There was a connection error of some sort
+    console.log('Geolocation connection error')
+    document.getElementById('input-form').reset();
+    document.getElementById('form-box').style = '';
+    document.getElementById('display-box').style = 'display:none'
+    document.getElementById('change-btn').style = 'display:none';
 };
+
 locationReq.send();
 
 
@@ -183,6 +192,11 @@ document.getElementById('city-submit').addEventListener('click', function(event)
         } 
         else {
         console.log("Error in network request: " + req.statusText);
+        document.getElementById('input-form').reset();
+        document.getElementById('form-box').style = '';
+        document.getElementById('display-box').style = 'display:none'
+        document.getElementById('change-btn').style = 'display:none';
+        alert('Sorry, the city wasn\'t found by that name');
     }});
 
     // Send the request
