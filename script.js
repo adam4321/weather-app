@@ -9,62 +9,62 @@ document.getElementById('form-box').style = 'display:none'
 let currentIcon;
 
 function findIcon(data) {
-    switch (data.weather[0].icon) {
-        case '01d':
-            currentIcon = './icons/sun.png';
-            break;
-        case '01n':
-            currentIcon = './icons/moon.png';
-            break;
-        case '02d':
-            currentIcon = './icons/partly-sunny.png';
-            break;
-        case '02n':
-            currentIcon = './icons/clouds.png';
-            break;
-        case '03d':
-            currentIcon = './icons/clouds.png';
-            break;
-        case '03n':
-            currentIcon = './icons/clouds.png';
-            break;
-        case '04d':
-            currentIcon = './icons/clouds.png';
-            break;
-        case '04n':
-            currentIcon = './icons/clouds.png';
-            break;
-        case '09d':
-            currentIcon = './icons/rain.png';
-            break;
-        case '09n':
-            currentIcon = './icons/rain.png';
-            break;
-        case '10d':
-            currentIcon = './icons/rain-sun.png';
-            break;
-        case '10n':
-            currentIcon = './icons/rain.png';
-            break;
-        case '11d':
-            currentIcon = './icons/storm.png';
-            break;
-        case '11n':
-            currentIcon = './icons/storm.png';
-            break;
-        case '13d':
-            currentIcon = './icons/snow.png';
-            break;
-        case '13n':
-            currentIcon = './icons/snow.png';
-            break;
-        case '50d':
-            currentIcon = './icons/drizzle.png';
-            break;
-        case '50n':
-            currentIcon = './icons/drizzle.png';
-            break;
-    }
+  switch (data.weather[0].icon) {
+    case "01d":
+      currentIcon = "./icons/sun.png";
+      break;
+    case "01n":
+      currentIcon = "./icons/moon.png";
+      break;
+    case "02d":
+      currentIcon = "./icons/partly-sunny.png";
+      break;
+    case "02n":
+      currentIcon = "./icons/clouds.png";
+      break;
+    case "03d":
+      currentIcon = "./icons/clouds.png";
+      break;
+    case "03n":
+      currentIcon = "./icons/clouds.png";
+      break;
+    case "04d":
+      currentIcon = "./icons/clouds.png";
+      break;
+    case "04n":
+      currentIcon = "./icons/clouds.png";
+      break;
+    case "09d":
+      currentIcon = "./icons/rain.png";
+      break;
+    case "09n":
+      currentIcon = "./icons/rain.png";
+      break;
+    case "10d":
+      currentIcon = "./icons/rain-sun.png";
+      break;
+    case "10n":
+      currentIcon = "./icons/rain.png";
+      break;
+    case "11d":
+      currentIcon = "./icons/storm.png";
+      break;
+    case "11n":
+      currentIcon = "./icons/storm.png";
+      break;
+    case "13d":
+      currentIcon = "./icons/snow.png";
+      break;
+    case "13n":
+      currentIcon = "./icons/snow.png";
+      break;
+    case "50d":
+      currentIcon = "./icons/drizzle.png";
+      break;
+    case "50n":
+      currentIcon = "./icons/drizzle.png";
+      break;
+  }
 }
 
 // Find the user's location
@@ -75,44 +75,39 @@ locationReq.open('GET', 'https://geoip-db.com/json/', true);
 
 locationReq.onload = function() {
   if (locationReq.status >= 200 && locationReq.status < 400) {
-    // Success!
     const locationData = JSON.parse(locationReq.responseText);
-    console.log(locationData.country_name);
-    console.log(locationData.state);
-    console.log(locationData.city);
-    console.log(locationData.latitude);
-    console.log(locationData.longitude);
-    console.log(locationData.IPv4);
+    // console.log(locationData.country_name);
+    // console.log(locationData.state);
+    // console.log(locationData.city);
+    // console.log(locationData.latitude);
+    // console.log(locationData.longitude);
+    // console.log(locationData.IPv4);
     location = locationData.city;
     document.getElementsByTagName('button')[0].click();
 
   } else {
     // We reached our target server, but it returned an error
-    console.log('error from target')
+    console.log('Error from geolocation service')
   }
 };
 
 locationReq.onerror = function() {
   // There was a connection error of some sort
-  console.log('connection error')
+  console.log('Geolocation connection error')
 };
-
 locationReq.send();
 
 
+// Populate weather if geolocation worked or render the choose city form
 const req = new XMLHttpRequest();
 
-// Check that the page is loaded before allowing a submission
-document.addEventListener('DOMContentLoaded', bindButtons);
-
-function bindButtons() {
-    document.getElementById('city-submit').addEventListener('click', function(event) {
+document.getElementById('city-submit').addEventListener('click', function(event) {
 
     // Receive city or zip from form
     const city = document.getElementById('text-box').value;
 
-    // Log the form's entered city or zip value
-    console.log(city);
+    // Log the form's entered city
+    // console.log(city);
 
     //Check that the location is set
     if (location) {}
@@ -188,12 +183,9 @@ function bindButtons() {
         } 
         else {
         console.log("Error in network request: " + req.statusText);
-        }});
+    }});
 
     // Send the request
     req.send(null);
-
-    // Run once for each button click
     event.preventDefault();
-    })
-};
+})
