@@ -67,12 +67,20 @@ function findIcon(data) {
   }
 }
 
+// Display city form and hide weather box
+function showForm() {
+    document.getElementById('input-form').reset();
+    document.getElementById('form-box').style = '';
+    document.getElementById('display-box').style = 'display:none'
+    document.getElementById('change-btn').style = 'display:none';
+}
+
+
 // Find the user's location
 const locationReq = new XMLHttpRequest();
 let location;
 
 locationReq.open('GET', 'https://geoip-db.com/json/', true);
-
 locationReq.onload = function() {
   if (locationReq.status >= 200 && locationReq.status < 400) {
     const locationData = JSON.parse(locationReq.responseText);
@@ -84,24 +92,18 @@ locationReq.onload = function() {
     // console.log(locationData.IPv4);
     location = locationData.city;
     document.getElementsByTagName('button')[0].click();
-
-  } else {
+  }
+  else {
     // We reached our target server, but it returned an error
     console.log('Error from geolocation service')
-    document.getElementById('input-form').reset();
-    document.getElementById('form-box').style = '';
-    document.getElementById('display-box').style = 'display:none'
-    document.getElementById('change-btn').style = 'display:none';
+    showForm();
   }
 };
 
 locationReq.onerror = function() {
     // There was a connection error of some sort
     console.log('Geolocation connection error')
-    document.getElementById('input-form').reset();
-    document.getElementById('form-box').style = '';
-    document.getElementById('display-box').style = 'display:none'
-    document.getElementById('change-btn').style = 'display:none';
+    showForm();
 };
 
 locationReq.send();
@@ -112,7 +114,7 @@ const req = new XMLHttpRequest();
 
 document.getElementById('city-submit').addEventListener('click', function(event) {
 
-    // Receive city or zip from form
+    // Receive city from form
     const city = document.getElementById('text-box').value;
 
     // Log the form's entered city
@@ -121,7 +123,7 @@ document.getElementById('city-submit').addEventListener('click', function(event)
     //Check that the location is set
     if (location) {}
     else if (city == '') {
-        alert("Please enter a city");
+        alert('Please enter a city');
     }
     else {
         location = city;
@@ -150,10 +152,6 @@ document.getElementById('city-submit').addEventListener('click', function(event)
             document.getElementById('icon').src = currentIcon;
 
             // List the current conditions
-            const conditions = document.createElement('p');
-            conditions.id = 'other';
-            conditions.className = 'reply';
-            document.getElementById('display-box').appendChild(conditions);
             document.getElementById('other').textContent = data.weather[0].description;
 
             // Convert kelvin temp from api to fahrenheit as default standard 
@@ -183,19 +181,12 @@ document.getElementById('city-submit').addEventListener('click', function(event)
             // Button so user can change location
             document.getElementById('change-btn').addEventListener('click', function(event) {
                 location = '';
-                // window.location.href = window.location.href;
-                document.getElementById('input-form').reset();
-                document.getElementById('form-box').style = '';
-                document.getElementById('display-box').style = 'display:none'
-                document.getElementById('change-btn').style = 'display:none';
+                showForm();
             })
         } 
         else {
-        console.log("Error in network request: " + req.statusText);
-        document.getElementById('input-form').reset();
-        document.getElementById('form-box').style = '';
-        document.getElementById('display-box').style = 'display:none'
-        document.getElementById('change-btn').style = 'display:none';
+        console.log('Error in network request: ' + req.statusText);
+        showForm();
         alert('Sorry, the city wasn\'t found by that name');
     }});
 
