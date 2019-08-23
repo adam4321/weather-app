@@ -25,6 +25,7 @@ form {
   margin: 5px 0px 20px 20px;
   padding: 5px;
   border: 1.5px solid rgb(59, 58, 58);
+  border-radius: 3px;
 }
 
 .form-box {
@@ -63,6 +64,7 @@ form {
 /* Weather information Section */
 #display-box {
   border: 1px solid black;
+  border-radius: 3px;
   background-color: #ffffffb2;
   width: 380px;
   margin: auto;
