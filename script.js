@@ -1,4 +1,3 @@
-
 // Import API key
 import * as credentials from './credentials.js';
 
