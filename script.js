@@ -1,12 +1,12 @@
-// Import API key
+// Import Open Weather map API key
 import * as credentials from './credentials.js';
 
-// Hide the manual submit form
+// Hide the page's components initially 
 document.getElementById('form-box').style = 'display:none';
 document.getElementById('display-box').style = 'display:none';
 document.getElementById('change-btn').style = 'display:none';
 
-// Function to match current weather icon to api's suggestion
+// Function to match current weather icon to API's suggestion
 let currentIcon;
 
 function findIcon(data) {
@@ -68,7 +68,7 @@ function findIcon(data) {
   }
 }
 
-// Display city form and hide weather box
+// Helper function to display the city select form and hide current weather box
 function showForm() {
     document.getElementById('input-form').reset();
     document.getElementById('form-box').style = '';
@@ -77,7 +77,7 @@ function showForm() {
 }
 
 
-// Find the user's location
+// Attempt to find the user's location
 const locationReq = new XMLHttpRequest();
 let location;
 
@@ -92,7 +92,7 @@ locationReq.onload = function() {
     // console.log(locationData.longitude);
     // console.log(locationData.IPv4);
     location = locationData.city;
-    document.getElementsByTagName('button')[0].click();
+    document.getElementById('city-submit').click();
   }
   else {
     // We reached our target server, but it returned an error
