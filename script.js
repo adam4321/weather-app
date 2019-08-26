@@ -91,8 +91,15 @@ locationReq.onload = function() {
     // console.log(locationData.latitude);
     // console.log(locationData.longitude);
     // console.log(locationData.IPv4);
-    location = locationData.city;
-    document.getElementById('city-submit').click();
+    if (locationData.city) {
+      location = locationData.city;
+      document.getElementById('city-submit').click();
+    }
+    else {
+      // We reached our target server, but it returned no city
+      console.log('Error from geolocation service')
+      showForm();
+    }
   }
   else {
     // We reached our target server, but it returned an error
