@@ -12,7 +12,7 @@ h1 {
 /* City information Form */
 .form-title {
   text-align: center;
-  margin: 25px 0px 1px -290px;
+  margin: 50px 0px 1px -310px;
 }
 
 #input-form {
@@ -21,7 +21,7 @@ h1 {
 }
 
 form {
-  width: 400px;
+  width: 430px;
   margin: 5px 0px 20px 20px;
   padding: 5px;
   border: 1.5px solid rgb(59, 58, 58);
@@ -38,6 +38,7 @@ form {
   margin-left: 48px;
   margin-bottom: 1px;
   width: 240px;
+  height: 21px;
 }
 
 .btn {
@@ -56,7 +57,7 @@ form {
 
 /* Submit location button */
 #city-submit {
-  margin: 20px 10px 10px 110px;
+  margin: 20px 10px 10px 125px;
   font-size: 18px;
   width: 180px;
 }
