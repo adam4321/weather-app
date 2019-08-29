@@ -1,10 +1,13 @@
+
 // Import Open Weather map API key
 import * as credentials from './credentials.js';
+
 
 // Hide the page's components initially 
 document.getElementById('form-box').style = 'display:none';
 document.getElementById('display-box').style = 'display:none';
 document.getElementById('change-btn').style = 'display:none';
+
 
 // Function to match current weather icon to API's suggestion
 let currentIcon;
@@ -67,6 +70,7 @@ function findIcon(data) {
       break;
   }
 }
+
 
 // Helper function to display the city select form and hide current weather box
 function showForm() {
@@ -131,7 +135,7 @@ document.getElementById('city-submit').addEventListener('click', function(event)
     //Check that the location is set
     if (location) {}
     else if (city == '') {
-        alert('Please enter a city');
+        alert('Please enter the city\nthat you are looking for\ninto the search-box');
         showForm();
     }
     else {
