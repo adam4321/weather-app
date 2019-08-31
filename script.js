@@ -130,7 +130,7 @@ const req = new XMLHttpRequest();
 document.getElementById('city-submit').addEventListener('click', function(event) {
 
     // Receive city from form
-    const city = document.getElementById('text-box').value;
+    let city = document.getElementById('text-box').value;
 
     // Log the form's entered city
     // console.log(city);
@@ -142,8 +142,11 @@ document.getElementById('city-submit').addEventListener('click', function(event)
         showForm();
     }
     else {
-        // let regex = 
-        // if (city )
+        // Weather API needs a space after a period in a city name
+        let regex = new RegExp("\\.");
+        if (regex.test(city)) {
+            city = city.replace('.', '. ');
+        }
         location = city;
         document.getElementById('form-box').style = 'display:none'; 
     }
@@ -203,8 +206,9 @@ document.getElementById('city-submit').addEventListener('click', function(event)
         } 
         else {
         console.log('Error in network request: ' + req.statusText);
+        location = '';
         showForm();
-        // alert('Sorry, the city wasn\'t found by that name');
+        // console.log('Sorry, a city wasn\'t found by that name');
     }});
 
     // Send the request
