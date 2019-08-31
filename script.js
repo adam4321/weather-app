@@ -138,7 +138,7 @@ document.getElementById('city-submit').addEventListener('click', function(event)
     //Check that the location is set
     if (location) {}
     else if (city == '') {
-        alert('Please enter the city\nthat you are looking for\ninto the search-box');
+        alert('Please enter a city into the search box');
         showForm();
     }
     else {
