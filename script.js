@@ -90,7 +90,7 @@ locationReq.onload = function() {
     if (locationReq.status >= 200 && locationReq.status < 400) {
         const locationData = JSON.parse(locationReq.responseText);
 
-        // Log the data returned from the API
+        // Log the responses from the API
         // console.log(locationData.country_name);
         // console.log(locationData.state);
         // console.log(locationData.city);
@@ -131,9 +131,6 @@ document.getElementById('city-submit').addEventListener('click', function(event)
 
     // Receive city from form
     let city = document.getElementById('text-box').value;
-
-    // Log the form's entered city
-    // console.log(city);
 
     //Check that the location is set
     if (location) {}
@@ -195,8 +192,10 @@ document.getElementById('city-submit').addEventListener('click', function(event)
                 temp.val = Math.floor(temp.val);
                 document.getElementById('temp').textContent = `${temp.val}\xB0 ${temp.tempType}`;
             })
+
+            // Show the weather result and change button
             document.getElementById('display-box').style = ''
-        document.getElementById('change-btn').style = '';
+            document.getElementById('change-btn').style = '';
 
             // Button so user can change location
             document.getElementById('change-btn').addEventListener('click', function(event) {
