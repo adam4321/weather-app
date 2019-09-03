@@ -125,7 +125,8 @@ form {
     margin: auto;
     padding: 20px;
     border: 1px solid #888;
-    width: 80%;
+    width: 460px;
+    text-align: center;
   }
   
   /* The Close Button */
