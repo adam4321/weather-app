@@ -155,7 +155,9 @@ document.getElementById('city-submit').addEventListener('click', function(event)
     let city = document.getElementById('text-box').value;
 
     //Check that the location is set
-    if (location) {}
+    if (location) {
+        
+    }
     else if (city == '') {
         (() => emptyModal.style.display = "block")();
         showForm();
@@ -218,6 +220,7 @@ document.getElementById('city-submit').addEventListener('click', function(event)
             // Show the weather result and change button
             document.getElementById('display-box').style = ''
             document.getElementById('change-btn').style = '';
+            city = '';
 
             // Button so user can change location
             document.getElementById('change-btn').addEventListener('click', function(event) {
@@ -226,11 +229,15 @@ document.getElementById('city-submit').addEventListener('click', function(event)
             })
         } 
         else {
-        console.log('Error in weather API request: ' + req.statusText);
-        location = '';
-        showForm();
-        (() => notFoundModal.style.display = "block")();
-    }});
+            console.log('Error in weather API request: ' + req.statusText);
+            location = '';
+            showForm();
+            if (city != '') {
+                city = '';
+                (() => notFoundModal.style.display = "block")();
+            }
+        }
+    });
 
     // Send the request
     req.send(null);
