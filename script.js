@@ -81,6 +81,28 @@ function showForm() {
 }
 
 
+// Warning Modal Implementation
+let emptyModal = document.getElementById('emptyModal');
+let notFoundModal = document.getElementById('notFoundModal')
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+    emptyModal.style.display = "none";
+    notFoundModal.style.display = "none";
+}
+  
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == emptyModal || event.target == notFoundModal) {
+        emptyModal.style.display = "none";
+        notFoundModal.style.display = "none";
+    }
+}
+
+
 // Attempt to find the user's location
 const locationReq = new XMLHttpRequest();
 let location;
@@ -135,7 +157,7 @@ document.getElementById('city-submit').addEventListener('click', function(event)
     //Check that the location is set
     if (location) {}
     else if (city == '') {
-        alert('Please enter a city into the search box');
+        (() => emptyModal.style.display = "block")();
         showForm();
     }
     else {
