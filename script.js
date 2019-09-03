@@ -226,11 +226,10 @@ document.getElementById('city-submit').addEventListener('click', function(event)
             })
         } 
         else {
-        console.log('Error in network request: ' + req.statusText);
+        console.log('Error in weather API request: ' + req.statusText);
         location = '';
         showForm();
         (() => notFoundModal.style.display = "block")();
-        // console.log('Sorry, a city wasn\'t found by that name');
     }});
 
     // Send the request
