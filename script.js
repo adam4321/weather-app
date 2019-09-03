@@ -229,6 +229,7 @@ document.getElementById('city-submit').addEventListener('click', function(event)
         console.log('Error in network request: ' + req.statusText);
         location = '';
         showForm();
+        (() => notFoundModal.style.display = "block")();
         // console.log('Sorry, a city wasn\'t found by that name');
     }});
 
