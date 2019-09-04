@@ -86,11 +86,15 @@ let emptyModal = document.getElementById('emptyModal');
 let notFoundModal = document.getElementById('notFoundModal')
 
 // Get the <span> element that closes the modal
-let span = document.getElementsByClassName("close")[0];
+let span1 = document.getElementsByClassName("close")[0];
+let span2 = document.getElementsByClassName("close")[1];
 
 // When the user clicks on <span> (x), close the modal
-span.onclick = function() {
+span1.onclick = function() {
     emptyModal.style.display = "none";
+}
+
+span2.onclick = function() {
     notFoundModal.style.display = "none";
 }
   
@@ -155,9 +159,7 @@ document.getElementById('city-submit').addEventListener('click', function(event)
     let city = document.getElementById('text-box').value;
 
     //Check that the location is set
-    if (location) {
-        
-    }
+    if (location) {}
     else if (city == '') {
         (() => emptyModal.style.display = "block")();
         showForm();
