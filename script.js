@@ -3,7 +3,8 @@
 import * as credentials from './credentials.js';
 
 
-// Hide the page's components initially 
+// Hide the page's components initially
+document.getElementById('form-header').style = 'display:none';
 document.getElementById('form-box').style = 'display:none';
 document.getElementById('display-box').style = 'display:none';
 document.getElementById('change-btn').style = 'display:none';
@@ -157,6 +158,7 @@ document.getElementById('city-submit').addEventListener('click', function(event)
 
     // Receive city from form
     let city = document.getElementById('text-box').value;
+    document.getElementById('form-header').style = '';
 
     //Check that the location is set
     if (location) {}
