@@ -1,3 +1,10 @@
+/*******************************************************************
+**  Author:       Adam Wright
+**  Description:  Single page weather application that returns the
+**                user's current local weather. It first tries to
+**                return the location using geolocation, but if that
+**                fails, then it will request the city name. 
+*******************************************************************/
 
 // Import Open Weather map API key
 import * as credentials from './credentials.js';
@@ -117,7 +124,7 @@ locationReq.onload = function() {
     if (locationReq.status >= 200 && locationReq.status < 400) {
         const locationData = JSON.parse(locationReq.responseText);
 
-        // Log the responses from the API
+        // // Log the responses from the API for testing
         // console.log(locationData.country_name);
         // console.log(locationData.state);
         // console.log(locationData.city);
@@ -181,7 +188,7 @@ document.getElementById('city-submit').addEventListener('click', function(event)
     req.addEventListener('load',function(){
         if (req.status >= 200 && req.status < 400) {
 
-            // Log the response
+            // // Log the response for testing
             // console.log(JSON.parse(req.responseText));
 
             // Store the response data
