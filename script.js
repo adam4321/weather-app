@@ -24,58 +24,58 @@ function findIcon(data) {
     switch (data.weather[0].icon) {
         case "01d":
             currentIcon = "./icons/sun.png";
-        break;
+            break;
         case "01n":
             currentIcon = "./icons/moon.png";
-        break;
+            break;
         case "02d":
             currentIcon = "./icons/partly-sunny.png";
-        break;
+            break;
         case "02n":
             currentIcon = "./icons/clouds.png";
-        break;
+            break;
         case "03d":
             currentIcon = "./icons/clouds.png";
-        break;
+            break;
         case "03n":
             currentIcon = "./icons/clouds.png";
-        break;
+            break;
         case "04d":
             currentIcon = "./icons/clouds.png";
-        break;
+            break;
         case "04n":
             currentIcon = "./icons/clouds.png";
-        break;
+            break;
         case "09d":
             currentIcon = "./icons/rain.png";
-        break;
+            break;
         case "09n":
             currentIcon = "./icons/rain.png";
-        break;
+            break;
         case "10d":
             currentIcon = "./icons/rain-sun.png";
-        break;
+            break;
         case "10n":
             currentIcon = "./icons/rain.png";
-        break;
+            break;
         case "11d":
             currentIcon = "./icons/storm.png";
-        break;
+            break;
         case "11n":
             currentIcon = "./icons/storm.png";
-        break;
+            break;
         case "13d":
             currentIcon = "./icons/snow.png";
-        break;
+            break;
         case "13n":
             currentIcon = "./icons/snow.png";
-        break;
+            break;
         case "50d":
             currentIcon = "./icons/drizzle.png";
-        break;
+            break;
         case "50n":
             currentIcon = "./icons/drizzle.png";
-        break;
+            break;
     }
 }
 
