@@ -84,6 +84,7 @@ function findIcon(data) {
 function showForm() {
     document.getElementById('input-form').reset();
     document.getElementById('form-box').style = '';
+    document.getElementById('text-box').focus();
     document.getElementById('display-box').style = 'display:none';
     document.getElementById('change-btn').style = 'display:none';
 }
@@ -133,13 +134,13 @@ locationReq.onload = function() {
         // console.log(locationData.IPv4);
 
         if (locationData.city) {
-        location = locationData.city;
-        document.getElementById('city-submit').click();
+            location = locationData.city;
+            document.getElementById('city-submit').click();
         }
         else {
-        // We reached our target server, but it returned no city
-        console.log('Error from geolocation service')
-        showForm();
+            // We reached our target server, but it returned no city
+            console.log('Error from geolocation service')
+            showForm();
         }
     }
     else {
