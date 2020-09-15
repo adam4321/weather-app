@@ -1,8 +1,8 @@
 <!--------------------------------------------------------------------- 
-** Author:       Adam Wright
-** Description:  Main html file for the application. Double click on
-**               this file or right click and choose open with live 
-**               server to view it.
+**  Author:       Adam Wright
+**  Description:  Main html file for the application. Double click on
+**                this file or right click and choose open with live 
+**                server to view it.
 ---------------------------------------------------------------------->
 
 <!doctype html>
@@ -20,14 +20,16 @@
 
     <body>
         <!-- GitHub source code link -->
-        <a 
-            id="gh-link" 
-            href="https://github.com/adam4321/weather-app" 
-            target="_blank" 
-            rel="noopener noreferrer"
-        >
-            <div>Open GitHub repo in a new tab</div>
-        </a>
+        <div id='gh-bar'>
+            <a
+                id='gh-link'
+                href='https://github.com/adam4321/weather-app'
+                target='_blank'
+                rel='noopener noreferrer'
+            >
+                <div>Open GitHub repo in a new tab</div>
+            </a>
+        </div>
 
         <!-- Weather widget -->
         <div id='root'>
@@ -80,7 +82,8 @@
         
         </div>
 
+        <button id="back-button" onClick="window.history.back()"> Back </button>
+
         <script type="module" src="script.js"></script>
     </body>
-
 </html>
