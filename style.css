@@ -199,10 +199,7 @@ form {
     font-size: 18px;
     font-family: verdana;
     padding-top: 1px;
-    box-shadow: 1px 3.5px 3px 0px rgb(27, 26, 26);
-    
-    /* display: inline-block; */
-    
+    box-shadow: 1px 3.5px 3px 0px rgb(27, 26, 26);    
     -webkit-transition: 0.4s;
     -moz-transition: 0.4s;
     -o-transition: 0.4s;
