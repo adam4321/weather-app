@@ -17,7 +17,7 @@ app.set('port', 6060);
 const request = require('request');
 
 // Set up path to static files
-app.use('/weather_app', express.static('public'));
+app.use('/weather_app', express.static(path.join(__dirname, 'public')));
 
 // Root route that serves index.html
 app.get('/weather_app', (req, res) => {
