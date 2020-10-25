@@ -187,13 +187,9 @@ form {
     text-align: center;
     border: none;
     display: block;
-    margin-left: auto;
-    margin-right: auto;
+    margin: 150px auto 0px auto;
     width: 140px;
-    margin-left: auto;
-    margin-right: auto;
     height: 35px;
-    margin-top: 150px;
     border-radius: 11px;
     color: gold;
     font-size: 18px;
