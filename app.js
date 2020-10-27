@@ -25,14 +25,15 @@ const credentials = require('./credentials.js');
 // Set up path to static files
 app.use('/weather_app', express.static(path.join(__dirname, 'public')));
 
-// Root route that serves index.html
+
+// Root GET route that serves index.html --------------------------------------
 app.get('/weather_app', (req, res) => {
     res.sendFile(path.join(__dirname + '/public/index.html'));
 });
 
-app.post('/weather_app/weather', (req, res, next) => {
-    let context = {};
 
+// Post route that receives the location and returns the weather --------------
+app.post('/weather_app/weather', (req, res, next) => {
     let location = req.body.location;
     let url = `http://api.openweathermap.org/data/2.5/weather?q=${location},us&APPID=${credentials.apiKey}`;
 
@@ -42,8 +43,10 @@ app.post('/weather_app/weather', (req, res, next) => {
             console.error('error:', error);
         }
         else {
+            // // Log the response for testing
+            // console.log(body);
+
             // Send the weather back to the client app
-            console.log(body);
             res.send(body);
             res.end();
         }

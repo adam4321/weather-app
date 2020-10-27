@@ -81,6 +81,7 @@ let location = '';
 // Helper function to display the city select form and hide current weather box
 function showForm() {
     location = '';
+    city = '';
     document.getElementById('input-form').reset();
     document.getElementById('form-box').style = '';
     document.getElementById('text-box').focus();
@@ -97,17 +98,19 @@ let notFoundModal = document.getElementById('notFoundModal')
 let span1 = document.getElementsByClassName("close")[0];
 let span2 = document.getElementsByClassName("close")[1];
 
-// When the user clicks on <span> (x), close the modal
-span1.onclick = function() {
+
+// When the user clicks on <span> (x), close the modal ------------------------
+span1.onclick = () => {
     emptyModal.style.display = "none";
 }
 
-span2.onclick = function() {
+span2.onclick = () => {
     notFoundModal.style.display = "none";
 }
   
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
+
+// When the user clicks anywhere outside of the modal, close it ---------------
+window.onclick = (event) => {
     if (event.target == emptyModal || event.target == notFoundModal) {
         emptyModal.style.display = "none";
         notFoundModal.style.display = "none";
@@ -123,13 +126,13 @@ locationReq.onload = () => {
     if (locationReq.status >= 200 && locationReq.status < 400) {
         const locationData = JSON.parse(locationReq.responseText);
 
-        // Log the responses from the API for testing
-        console.log(locationData.country_name);
-        console.log(locationData.state);
-        console.log(locationData.city);
-        console.log(locationData.latitude);
-        console.log(locationData.longitude);
-        console.log(locationData.IPv4);
+        // // Log the responses from the API for testing
+        // console.log(locationData.country_name);
+        // console.log(locationData.state);
+        // console.log(locationData.city);
+        // console.log(locationData.latitude);
+        // console.log(locationData.longitude);
+        // console.log(locationData.IPv4);
 
         if (locationData.city) {
             location = locationData.city;
@@ -149,7 +152,7 @@ locationReq.onload = () => {
 };
 
 
-// There was a connection error of some sort
+// There was a connection error of some sort ----------------------------------
 locationReq.onerror = () => {
     console.error('Geolocation connection error')
     showForm();
@@ -167,7 +170,9 @@ document.getElementById('city-submit').addEventListener('click', (event) => {
     document.getElementById('form-header').style = '';
 
     //Check that the location is set
-    if (location) {}
+    if (location) {
+        weather();
+    }
     else if (city == '') {
         (() => emptyModal.style.display = 'block')();
         showForm();
@@ -179,11 +184,14 @@ document.getElementById('city-submit').addEventListener('click', (event) => {
             city = city.replace('.', '. ');
         }
         location = city;
-        document.getElementById('form-box').style = 'display:none'; 
+        document.getElementById('form-box').style = 'display:none';
+        weather();
     }
+})
 
 
-    // Open POST request to backend to retrieve the weather data
+// Open POST request to backend to retrieve the weather data ------------------
+let weather = () => {
     const weatherReq = new XMLHttpRequest();
     weatherReq.open('POST', `http://localhost:6060/weather_app/weather`);
     weatherReq.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -191,8 +199,8 @@ document.getElementById('city-submit').addEventListener('click', (event) => {
     
     weatherReq.addEventListener('load', () => {
         if (weatherReq.status >= 200 && weatherReq.status < 400) {
-            // Log the response for testing
-            console.log(JSON.parse(weatherReq.responseText));
+            // // Log the response for testing
+            // console.log(JSON.parse(weatherReq.responseText));
 
             // Store the response data
             const data = JSON.parse(weatherReq.responseText);
@@ -258,5 +266,5 @@ document.getElementById('city-submit').addEventListener('click', (event) => {
                 (() => notFoundModal.style.display = "block")();
             }
         }
-    }); 
-})
+    });
+}
