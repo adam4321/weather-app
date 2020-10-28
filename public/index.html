@@ -11,6 +11,7 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="author" content="Adam-Wright">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="shortcut icon" href="icons/favicon.ico">
         <link href="https://fonts.googleapis.com/css?family=Oswald&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> 
@@ -51,38 +52,41 @@
                 <p id='city' class='reply'></p>
                 <img id='icon' class='reply'>
                 <p id='other' class='reply'></p>
-                <p id='temp' class='reply'></p><button id='standard-btn' class='btn'>F. | C.</button>
-                
+
+                <div id="temp-container">
+                    <p id='temp' class='reply'></p>
+                    <button id='standard-btn' class='btn'>F. | C.</button>
+                </div>
             </div>
-        </div>
+
+            <!-- Manual location change button -->
+            <button id='change-btn' class='btn'>Change Location</button>
 
 
-        <!-- Manual location change button -->
-        <button id='change-btn' class='btn'>Change Location</button>
+            <!-- Warning Modals -->
+            <div id="emptyModal" class="modal">
 
-
-        <!-- Warning Modals -->
-        <div id="emptyModal" class="modal">
-
-            <!-- Modal content -->
-            <div class="modal-content">
-            <span class="close">&times;</span>
-            <p>Please enter a city into the search box</p>
+                <!-- Modal content -->
+                <div class="modal-content">
+                <span class="close">&times;</span>
+                <p>Please enter a city into the search box</p>
+                </div>
+            
             </div>
-        
-        </div>
 
-        <div id="notFoundModal" class="modal">
+            <div id="notFoundModal" class="modal">
 
-            <!-- Modal content -->
-            <div class="modal-content">
-            <span class="close">&times;</span>
-            <p>Sorry, a city wasn't found by that name</p>
+                <!-- Modal content -->
+                <div class="modal-content">
+                <span class="close">&times;</span>
+                <p>Sorry, a city wasn't found by that name</p>
+                </div>
+            
             </div>
-        
-        </div>
 
-        <button id="back-button" onClick="window.history.back()"> Back </button>
+            <button id="back-button" onClick="window.history.back()"> Back </button>
+
+        </div>
 
         <script type="module" src="index.js"></script>
     </body>

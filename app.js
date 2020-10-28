@@ -54,7 +54,7 @@ app.post('/weather_app/weather', (req, res, next) => {
 });
 
 
-// Start the server on the static port
+// Start the server on the static port ----------------------------------------
 app.listen(app.get('port'), function() {
-    console.log(`\nExpress started on http://localhost:${app.get('port')};\npress Ctrl-C to terminate.\n`);
+    console.log(`\nExpress started on http://localhost:${app.get('port')}/weather_app;\npress Ctrl-C to terminate.\n`);
 });
