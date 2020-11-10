@@ -60,7 +60,8 @@ form {
 }
 
 #text-box {
-    margin: 0px 0px 1px 48px;
+    margin-left: 48px;
+    margin-bottom: 1px;
     width: 240px;
     height: 21px;
 }
@@ -85,9 +86,8 @@ form {
 /* Submit location button -------------------------------------------------- */
 
 #city-submit {
-    margin: 20px auto 10px auto;
+    margin: 20px 10px 10px 125px;
     font-size: 18px;
-    display: block;
     width: 180px;
 }
 
@@ -113,23 +113,16 @@ form {
 }
 
 #icon {
-    display: block;
-    margin: 0px auto 0px auto;
-}
-
-#temp-container {
-    width: 150px;
-    margin: 0px auto 20px auto;
+    margin-left: 145px;
 }
 
 #temp {
-    margin-left: 28px;
-    display: inline;
+    margin-left: 145px;
+    display: inline-block;
 }
 
 #standard-btn {
-    display: inline-block;
-    margin-left: 10px;
+    margin-left: 20px;
     font-size: 14px;
     color: rgb(38, 91, 143);
     background-color: rgba(250, 235, 215, 0);
@@ -194,12 +187,16 @@ form {
     text-align: center;
     border: none;
     display: block;
-    margin: 140px auto 0px auto;
+    margin-left: auto;
+    margin-right: auto;
     width: 140px;
+    margin-left: auto;
+    margin-right: auto;
     height: 35px;
-    border-radius: 10px;
+    margin-top: 150px;
+    border-radius: 11px;
     color: gold;
-    font-size: 19px;
+    font-size: 18px;
     font-family: verdana;
     padding-top: 1px;
     box-shadow: 1px 3.5px 3px 0px rgb(27, 26, 26);    
@@ -217,45 +214,4 @@ form {
     -moz-transition: 0.4s;
     -o-transition: 0.4s;
     transition: 0.4s;
-}
-
-/* MEDIA QUERIES ----------------------------------------------------------- */
-
-@media only screen and (max-width: 500px) {
-    #gh-bar {
-        margin-bottom: 25px;
-    }
-
-    #form-header {
-        margin-top: 10px;
-    }
-
-    #display-box {
-        width: 280px;
-    }
-
-    #form-box {
-        width: 280px;
-        margin: 0px auto 0px auto;
-    }
-
-    .form-title {
-        margin-left: -52%;
-        /* text-align: center; */
-    }
-
-    #input-form {
-        width: 280px;
-    }
-
-    #text-box {
-        width: 175px;
-        margin: 0 0 1px 10px;
-    }
-
-    #back-button {
-        margin-top: 85px;
-        height: 30px;
-        font-size: 18px;
-    }
 }

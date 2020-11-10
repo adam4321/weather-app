@@ -1,10 +1,14 @@
-/******************************************************************************
-**  Author:         Adam Wright
-**  Description:    Single page weather application that returns the
-**                  user's current local weather. It first tries to
-**                  return the location using geolocation, but if that
-**                  fails, then it will request the city name. 
-******************************************************************************/
+/*******************************************************************
+**  Author:       Adam Wright
+**  Description:  Single page weather application that returns the
+**                user's current local weather. It first tries to
+**                return the location using geolocation, but if that
+**                fails, then it will request the city name. 
+*******************************************************************/
+
+// Import Open Weather map API key
+import credentials from './credentials.js';
+
 
 // Hide the page's components initially
 document.getElementById('form-header').style = 'display:none';
@@ -13,7 +17,7 @@ document.getElementById('display-box').style = 'display:none';
 document.getElementById('change-btn').style = 'display:none';
 
 
-// Function to match current weather icon to API's suggestion -----------------
+// Function to match current weather icon to API's suggestion
 let currentIcon;
 
 function findIcon(data) {
@@ -75,13 +79,9 @@ function findIcon(data) {
     }
 }
 
-// Declare a variable to hold the user's location
-let location = '';
 
 // Helper function to display the city select form and hide current weather box
 function showForm() {
-    location = '';
-    city = '';
     document.getElementById('input-form').reset();
     document.getElementById('form-box').style = '';
     document.getElementById('text-box').focus();
@@ -98,19 +98,17 @@ let notFoundModal = document.getElementById('notFoundModal')
 let span1 = document.getElementsByClassName("close")[0];
 let span2 = document.getElementsByClassName("close")[1];
 
-
-// When the user clicks on <span> (x), close the modal ------------------------
-span1.onclick = () => {
+// When the user clicks on <span> (x), close the modal
+span1.onclick = function() {
     emptyModal.style.display = "none";
 }
 
-span2.onclick = () => {
+span2.onclick = function() {
     notFoundModal.style.display = "none";
 }
   
-
-// When the user clicks anywhere outside of the modal, close it ---------------
-window.onclick = (event) => {
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
     if (event.target == emptyModal || event.target == notFoundModal) {
         emptyModal.style.display = "none";
         notFoundModal.style.display = "none";
@@ -118,11 +116,12 @@ window.onclick = (event) => {
 }
 
 
-// Attempt to find the user's location ----------------------------------------
+// Attempt to find the user's location
 const locationReq = new XMLHttpRequest();
+let location;
 
 locationReq.open('GET', 'https://geoip-db.com/json/', true);
-locationReq.onload = () => {
+locationReq.onload = function() {
     if (locationReq.status >= 200 && locationReq.status < 400) {
         const locationData = JSON.parse(locationReq.responseText);
 
@@ -140,41 +139,39 @@ locationReq.onload = () => {
         }
         else {
             // We reached our target server, but it returned no city
-            console.error('Error from geolocation service')
+            console.log('Error from geolocation service')
             showForm();
         }
     }
     else {
         // We reached our target server, but it returned an error
-        console.error('Error from geolocation service')
+        console.log('Error from geolocation service')
         showForm();
     }
 };
 
-
-// There was a connection error of some sort ----------------------------------
-locationReq.onerror = () => {
-    console.error('Geolocation connection error')
+locationReq.onerror = function() {
+    // There was a connection error of some sort
+    console.log('Geolocation connection error')
     showForm();
 };
 
 locationReq.send();
 
 
-// Populate weather if geolocation worked or render the choose city form ------
-document.getElementById('city-submit').addEventListener('click', (event) => {
-    event.preventDefault();
+// Populate weather if geolocation worked or render the choose city form
+const req = new XMLHttpRequest();
+
+document.getElementById('city-submit').addEventListener('click', function(event) {
 
     // Receive city from form
     let city = document.getElementById('text-box').value;
     document.getElementById('form-header').style = '';
 
     //Check that the location is set
-    if (location) {
-        weather();
-    }
+    if (location) {}
     else if (city == '') {
-        (() => emptyModal.style.display = 'block')();
+        (() => emptyModal.style.display = "block")();
         showForm();
     }
     else {
@@ -184,81 +181,67 @@ document.getElementById('city-submit').addEventListener('click', (event) => {
             city = city.replace('.', '. ');
         }
         location = city;
-        document.getElementById('form-box').style = 'display:none';
-        weather();
+        document.getElementById('form-box').style = 'display:none'; 
     }
-})
 
+    // Open get request to the open weather api
+    req.open('GET', `https://api.openweathermap.org/data/2.5/weather?q=${location},us&APPID=${credentials}`, true);
+    req.addEventListener('load',function(){
+        if (req.status >= 200 && req.status < 400) {
 
-// Open POST request to backend to retrieve the weather data ------------------
-let weather = () => {
-    const weatherReq = new XMLHttpRequest();
-    weatherReq.open('POST', `http://localhost:6060/weather_app/weather`);
-    weatherReq.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    weatherReq.send(`location=${location}`);
-    
-    weatherReq.addEventListener('load', () => {
-        if (weatherReq.status >= 200 && weatherReq.status < 400) {
             // // Log the response for testing
-            // console.log(JSON.parse(weatherReq.responseText));
+            // console.log(JSON.parse(req.responseText));
 
             // Store the response data
-            const data = JSON.parse(weatherReq.responseText);
+            const data = JSON.parse(req.responseText);
 
-            if (data.cod === '404') {
-                (() => notFoundModal.style.display = "block")();
-                showForm();
-            }
-            else {
+            // Display the current city name
+            document.getElementById('city').textContent = data.name;
 
-                // Display the current city name
-                document.getElementById('city').textContent = data.name;
+            // Set the current weather icon
+            findIcon(data);
+            document.getElementById('icon').src = currentIcon;
 
-                // Set the current weather icon
-                findIcon(data);
-                document.getElementById('icon').src = currentIcon;
+            // List the current conditions
+            document.getElementById('other').textContent = data.weather[0].description;
 
-                // List the current conditions
-                document.getElementById('other').textContent = data.weather[0].description;
+            // Convert kelvin temp from api to fahrenheit as default standard 
+            let temp = {};
+            temp.val = data.main.temp;
+            temp.tempType = 'F';
+            temp.val = (temp.val - 273.15) * 9/5 + 32;
+            temp.val = Math.floor(temp.val);
+            document.getElementById('temp').textContent = `${temp.val}\xB0 ${temp.tempType}`;
 
-                // Convert kelvin temp from api to fahrenheit as default standard 
-                let temp = {};
-                temp.val = data.main.temp;
-                temp.tempType = 'F';
-                temp.val = (temp.val - 273.15) * 9/5 + 32;
+            // Farenheit or Celcius button
+            document.getElementById('standard-btn').addEventListener('click', function(event) {
+                if (temp.tempType == 'F') {
+                    temp.tempType = 'C';
+                    temp.val = data.main.temp
+                    temp.val = temp.val - 273.15;
+                }
+                else if (temp.tempType == 'C') {
+                    temp.tempType = 'F';
+                    temp.val = data.main.temp
+                    temp.val = (temp.val - 273.15) * 9/5 + 32;
+                }
                 temp.val = Math.floor(temp.val);
                 document.getElementById('temp').textContent = `${temp.val}\xB0 ${temp.tempType}`;
+            })
 
-                // Farenheit or Celcius button
-                document.getElementById('standard-btn').addEventListener('click', function(event) {
-                    if (temp.tempType == 'F') {
-                        temp.tempType = 'C';
-                        temp.val = data.main.temp
-                        temp.val = temp.val - 273.15;
-                    }
-                    else if (temp.tempType == 'C') {
-                        temp.tempType = 'F';
-                        temp.val = data.main.temp
-                        temp.val = (temp.val - 273.15) * 9/5 + 32;
-                    }
-                    temp.val = Math.floor(temp.val);
-                    document.getElementById('temp').textContent = `${temp.val}\xB0 ${temp.tempType}`;
-                })
+            // Show the weather result and change button
+            document.getElementById('display-box').style = ''
+            document.getElementById('change-btn').style = '';
+            city = '';
 
-                // Show the weather result and change button
-                document.getElementById('display-box').style = ''
-                document.getElementById('change-btn').style = '';
-                city = '';
-
-                // Button so user can change location
-                document.getElementById('change-btn').addEventListener('click', function(event) {
-                    location = '';
-                    showForm();
-                })
-            }
+            // Button so user can change location
+            document.getElementById('change-btn').addEventListener('click', function(event) {
+                location = '';
+                showForm();
+            })
         } 
         else {
-            console.error('Error in weather API request: ' + weatherReq.statusText);
+            console.log('Error in weather API request: ' + req.statusText);
             location = '';
             showForm();
             if (city != '') {
@@ -267,4 +250,8 @@ let weather = () => {
             }
         }
     });
-}
+
+    // Send the request
+    req.send(null);
+    event.preventDefault();
+})
