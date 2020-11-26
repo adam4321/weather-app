@@ -32,6 +32,14 @@ h1 {
     font-size: 42px;
 }
 
+/* #form-header {
+    display: none;
+} */
+
+#form-box {
+    display: none;
+}
+
 
 /* City information Form --------------------------------------------------- */
 
@@ -95,6 +103,7 @@ form {
 /* Weather information Section --------------------------------------------- */
 
 #display-box {
+    /* display: none; */
     border: 1px solid black;
     border-radius: 3px;
     background-color: #ffffffb2;
@@ -129,6 +138,7 @@ form {
 }
 
 #change-btn {
+    /* display: none; */
     font-size: 16px;
     display: block;
     margin: auto;
@@ -183,21 +193,18 @@ form {
 
 #back-button {
     background-color: #04536d;
+    color: gold;
+    font-size: 18px;
+    font-family: verdana;
+    cursor: pointer;
     text-decoration: none;
     text-align: center;
     border: none;
     display: block;
-    margin-left: auto;
-    margin-right: auto;
+    margin: 150px auto 0 auto;
     width: 140px;
-    margin-left: auto;
-    margin-right: auto;
     height: 35px;
-    margin-top: 150px;
     border-radius: 11px;
-    color: gold;
-    font-size: 18px;
-    font-family: verdana;
     padding-top: 1px;
     box-shadow: 1px 3.5px 3px 0px rgb(27, 26, 26);    
     -webkit-transition: 0.4s;
@@ -207,7 +214,6 @@ form {
 }
 
 #back-button:hover {
-    cursor: pointer;
     color: rgba(154, 182, 196, 0.582);
     opacity: 0.7;
     -webkit-transition: 0.4s;
