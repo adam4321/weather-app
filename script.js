@@ -1,6 +1,6 @@
 /*******************************************************************
 **  Author:       Adam Wright
-**  Description:  Single page weather application that returns the
+**  Description:  Client-side only weather widget that returns the
 **                user's current local weather. It first tries to
 **                return the location using geolocation, but if that
 **                fails, then it will request the city name. 
@@ -8,7 +8,6 @@
 
 // Import Open Weather map API key
 import credentials from './credentials.js';
-
 
 // Function to match current weather icon to API's suggestion
 let currentIcon;
@@ -154,89 +153,96 @@ locationReq.send();
 
 
 // Populate weather if geolocation worked or render the choose city form
-const req = new XMLHttpRequest();
-
 document.getElementById('city-submit').addEventListener('click', (event) => {
+    event.preventDefault();
 
     // Receive city from form
     let city = document.getElementById('text-box').value;
     document.getElementById('form-header').style = '';
 
+    console.log(location);
+
     //Check that the location is set
-    if (location) {}
-    else if (city == '') {
+    if (city == '' && location == '') {
         (() => emptyModal.style.display = "block")();
         showForm();
     }
-    else {
+    else if (location == '') {
         // Weather API needs a space after a period in a city name
         let regex = new RegExp("\\.");
         if (regex.test(city)) {
             city = city.replace('.', '. ');
         }
+
         location = city;
         document.getElementById('form-box').style = 'display:none'; 
     }
+    
+    // Open GET request to the open weather api
+    if (location !== '') {
+        const req = new XMLHttpRequest();
+        req.open('GET', `https://api.openweathermap.org/data/2.5/weather?q=${location},us&APPID=${credentials}`, true);
+        req.addEventListener('load', () => {
+            if (req.status >= 200 && req.status < 400) {
 
-    // Open get request to the open weather api
-    req.open('GET', `https://api.openweathermap.org/data/2.5/weather?q=${location},us&APPID=${credentials}`, true);
-    req.addEventListener('load', () => {
-        if (req.status >= 200 && req.status < 400) {
+                // Store the response data
+                const data = JSON.parse(req.responseText);
 
-            // Store the response data
-            const data = JSON.parse(req.responseText);
+                // Hide the spinner
+                document.getElementById('spinner').style = 'display:none';
 
-            // Display the current city name
-            document.getElementById('city').textContent = data.name;
+                // Display the current city name
+                document.getElementById('city').textContent = data.name;
 
-            // Set the current weather icon
-            findIcon(data);
-            document.getElementById('icon').src = currentIcon;
+                // Set the current weather icon
+                findIcon(data);
+                document.getElementById('icon').src = currentIcon;
 
-            // List the current conditions
-            document.getElementById('other').textContent = data.weather[0].description;
+                // List the current conditions
+                document.getElementById('other').textContent = data.weather[0].description;
 
-            // Convert kelvin temp from api to fahrenheit as default standard 
-            let temp = {};
-            temp.val = data.main.temp;
-            temp.tempType = 'F';
-            temp.val = (temp.val - 273.15) * 9/5 + 32;
-            temp.val = Math.floor(temp.val);
-            document.getElementById('temp').textContent = `${temp.val}\xB0 ${temp.tempType}`;
-
-            // Farenheit or Celcius button
-            document.getElementById('standard-btn').addEventListener('click', (event) => {
-                if (temp.tempType == 'F') {
-                    temp.tempType = 'C';
-                    temp.val = data.main.temp;
-                    temp.val = temp.val - 273.15;
-                }
-                else if (temp.tempType == 'C') {
-                    temp.tempType = 'F';
-                    temp.val = data.main.temp;
-                    temp.val = (temp.val - 273.15) * 9/5 + 32;
-                }
+                // Convert kelvin temp from api to fahrenheit as default standard 
+                let temp = {};
+                temp.val = data.main.temp;
+                temp.tempType = 'F';
+                temp.val = (temp.val - 273.15) * 9/5 + 32;
                 temp.val = Math.floor(temp.val);
                 document.getElementById('temp').textContent = `${temp.val}\xB0 ${temp.tempType}`;
-            })
 
-            // Show the weather result and change button
-            document.getElementById('display-box').style = '';
-            document.getElementById('change-btn').style = '';
-            city = '';
-        } 
-        else {
-            console.log('Error in weather API request: ' + req.statusText);
-            location = '';
-            showForm();
-            if (city != '') {
+                // Farenheit or Celcius button
+                document.getElementById('standard-btn').addEventListener('click', (event) => {
+                    if (temp.tempType == 'F') {
+                        temp.tempType = 'C';
+                        temp.val = data.main.temp;
+                        temp.val = temp.val - 273.15;
+                    }
+                    else if (temp.tempType == 'C') {
+                        temp.tempType = 'F';
+                        temp.val = data.main.temp;
+                        temp.val = (temp.val - 273.15) * 9/5 + 32;
+                    }
+                    temp.val = Math.floor(temp.val);
+                    document.getElementById('temp').textContent = `${temp.val}\xB0 ${temp.tempType}`;
+                })
+
+                // Show the weather result and change button
+                document.getElementById('display-box').style = '';
+                document.getElementById('change-btn').style = '';
+                document.getElementById('standard-btn').style.display = 'unset';
                 city = '';
-                (() => notFoundModal.style.display = "block")();
+            } 
+            else {
+                console.log('Error in weather API request: ' + req.statusText);
+                location = '';
+                showForm();
+                if (city != '') {
+                    city = '';
+                    (() => notFoundModal.style.display = "block")();
+                }
             }
-        }
-    });
+        });
 
-    // Send the request
-    req.send(null);
-    event.preventDefault();
+        // Send the request
+        req.send(null);
+    }
 })
