@@ -15,58 +15,58 @@ let currentIcon;
 function findIcon(data) {
     switch (data.weather[0].icon) {
         case "01d":
-            currentIcon = "./icons/sun.png";
+            currentIcon = "/weather_widget/icons/sun.png";
             break;
         case "01n":
-            currentIcon = "./icons/moon.png";
+            currentIcon = "/weather_widget/icons/moon.png";
             break;
         case "02d":
-            currentIcon = "./icons/partly-sunny.png";
+            currentIcon = "/weather_widget/icons/partly-sunny.png";
             break;
         case "02n":
-            currentIcon = "./icons/clouds.png";
+            currentIcon = "/weather_widget/icons/clouds.png";
             break;
         case "03d":
-            currentIcon = "./icons/clouds.png";
+            currentIcon = "/weather_widget/icons/clouds.png";
             break;
         case "03n":
-            currentIcon = "./icons/clouds.png";
+            currentIcon = "/weather_widget/icons/clouds.png";
             break;
         case "04d":
-            currentIcon = "./icons/clouds.png";
+            currentIcon = "/weather_widget/icons/clouds.png";
             break;
         case "04n":
-            currentIcon = "./icons/clouds.png";
+            currentIcon = "/weather_widget/icons/clouds.png";
             break;
         case "09d":
-            currentIcon = "./icons/rain.png";
+            currentIcon = "/weather_widget/icons/rain.png";
             break;
         case "09n":
-            currentIcon = "./icons/rain.png";
+            currentIcon = "/weather_widget/icons/rain.png";
             break;
         case "10d":
-            currentIcon = "./icons/rain-sun.png";
+            currentIcon = "/weather_widget/icons/rain-sun.png";
             break;
         case "10n":
-            currentIcon = "./icons/rain.png";
+            currentIcon = "/weather_widget/icons/rain.png";
             break;
         case "11d":
-            currentIcon = "./icons/storm.png";
+            currentIcon = "/weather_widget/icons/storm.png";
             break;
         case "11n":
-            currentIcon = "./icons/storm.png";
+            currentIcon = "/weather_widget/icons/storm.png";
             break;
         case "13d":
-            currentIcon = "./icons/snow.png";
+            currentIcon = "/weather_widget/icons/snow.png";
             break;
         case "13n":
-            currentIcon = "./icons/snow.png";
+            currentIcon = "/weather_widget/icons/snow.png";
             break;
         case "50d":
-            currentIcon = "./icons/drizzle.png";
+            currentIcon = "/weather_widget/icons/drizzle.png";
             break;
         case "50n":
-            currentIcon = "./icons/drizzle.png";
+            currentIcon = "/weather_widget/icons/drizzle.png";
             break;
     }
 }
