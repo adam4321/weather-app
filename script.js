@@ -119,7 +119,7 @@ window.onclick = (event) => {
 const locationReq = new XMLHttpRequest();
 let location;
 
-locationReq.open('GET', 'https://geoip-db.com/json/', true);
+locationReq.open('GET', 'https://geolocation-db.com/json/', true);
 locationReq.onload = () => {
     if (locationReq.status >= 200 && locationReq.status < 400) {
         const locationData = JSON.parse(locationReq.responseText);
