@@ -119,7 +119,8 @@ window.onclick = (event) => {
 const locationReq = new XMLHttpRequest();
 let location;
 
-locationReq.open('GET', 'https://geolocation-db.com/json/', true);
+const newLocal = 'https://geolocation-db.com/json/';
+locationReq.open('GET', newLocal, true);
 locationReq.onload = () => {
     if (locationReq.status >= 200 && locationReq.status < 400) {
         const locationData = JSON.parse(locationReq.responseText);
@@ -131,13 +132,13 @@ locationReq.onload = () => {
         }
         // We reached our target server, but it returned no city
         else {
-            console.error('Error from geolocation service')
+            console.error('Error geolocation service can\'t find city');
             showForm();
         }
     }
     // We reached our target server, but it returned an error
     else {
-        console.error('Error from geolocation service')
+        console.error('Error from geolocation service');
         showForm();
     }
 };
@@ -145,7 +146,7 @@ locationReq.onload = () => {
 
 // There was a connection error of some sort
 locationReq.onerror = () => {
-    console.error('Geolocation connection error')
+    console.error('Geolocation connection error');
     showForm();
 };
 
@@ -160,14 +161,12 @@ document.getElementById('city-submit').addEventListener('click', (event) => {
     let city = document.getElementById('text-box').value;
     document.getElementById('form-header').style = '';
 
-    console.log(location);
-
     //Check that the location is set
-    if (city == '' && location == '') {
+    if (city == '' && (location == '' || location == undefined)) {
         (() => emptyModal.style.display = "block")();
         showForm();
     }
-    else if (location == '') {
+    else if (location == '' || location == undefined) {
         // Weather API needs a space after a period in a city name
         let regex = new RegExp("\\.");
         if (regex.test(city)) {
