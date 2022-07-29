@@ -10,63 +10,64 @@
 import credentials from './credentials.js';
 
 // Function to match current weather icon to API's suggestion
+const DIR_PATH = "/weather_widget/";
 let currentIcon;
 
 function findIcon(data) {
     switch (data.weather[0].icon) {
         case "01d":
-            currentIcon = "/weather_widget/icons/sun.png";
+            currentIcon = "icons/sun.png";
             break;
         case "01n":
-            currentIcon = "/weather_widget/icons/moon.png";
+            currentIcon = "icons/moon.png";
             break;
         case "02d":
-            currentIcon = "/weather_widget/icons/partly-sunny.png";
+            currentIcon = "icons/partly-sunny.png";
             break;
         case "02n":
-            currentIcon = "/weather_widget/icons/clouds.png";
+            currentIcon = "icons/clouds.png";
             break;
         case "03d":
-            currentIcon = "/weather_widget/icons/clouds.png";
+            currentIcon = "icons/clouds.png";
             break;
         case "03n":
-            currentIcon = "/weather_widget/icons/clouds.png";
+            currentIcon = "icons/clouds.png";
             break;
         case "04d":
-            currentIcon = "/weather_widget/icons/clouds.png";
+            currentIcon = "icons/clouds.png";
             break;
         case "04n":
-            currentIcon = "/weather_widget/icons/clouds.png";
+            currentIcon = "icons/clouds.png";
             break;
         case "09d":
-            currentIcon = "/weather_widget/icons/rain.png";
+            currentIcon = "icons/rain.png";
             break;
         case "09n":
-            currentIcon = "/weather_widget/icons/rain.png";
+            currentIcon = "icons/rain.png";
             break;
         case "10d":
-            currentIcon = "/weather_widget/icons/rain-sun.png";
+            currentIcon = "icons/rain-sun.png";
             break;
         case "10n":
-            currentIcon = "/weather_widget/icons/rain.png";
+            currentIcon = "icons/rain.png";
             break;
         case "11d":
-            currentIcon = "/weather_widget/icons/storm.png";
+            currentIcon = "icons/storm.png";
             break;
         case "11n":
-            currentIcon = "/weather_widget/icons/storm.png";
+            currentIcon = "icons/storm.png";
             break;
         case "13d":
-            currentIcon = "/weather_widget/icons/snow.png";
+            currentIcon = "icons/snow.png";
             break;
         case "13n":
-            currentIcon = "/weather_widget/icons/snow.png";
+            currentIcon = "icons/snow.png";
             break;
         case "50d":
-            currentIcon = "/weather_widget/icons/drizzle.png";
+            currentIcon = "icons/drizzle.png";
             break;
         case "50n":
-            currentIcon = "/weather_widget/icons/drizzle.png";
+            currentIcon = "icons/drizzle.png";
             break;
     }
 }
@@ -119,7 +120,7 @@ window.onclick = (event) => {
 const locationReq = new XMLHttpRequest();
 let location;
 
-const newLocal = 'https://geolocation-db.com/json/';
+const newLocal = 'https://ipapi.co/json/';
 locationReq.open('GET', newLocal, true);
 locationReq.onload = () => {
     if (locationReq.status >= 200 && locationReq.status < 400) {
@@ -195,7 +196,7 @@ document.getElementById('city-submit').addEventListener('click', (event) => {
 
                 // Set the current weather icon
                 findIcon(data);
-                document.getElementById('icon').src = currentIcon;
+                document.getElementById('icon').src = DIR_PATH + currentIcon;
 
                 // List the current conditions
                 document.getElementById('other').textContent = data.weather[0].description;
